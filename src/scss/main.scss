@@ -1,8 +1,8 @@
-
+@import "colors";
 
 .hello {
   &:after {
-    color: red;
+    color: $red;
   }
 }
 
