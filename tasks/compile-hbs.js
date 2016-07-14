@@ -18,7 +18,7 @@ function renderPage(template, layout) {
   var file = fs.readFileSync(layout, 'utf8'),
       context = {body: template},
       page = Handlebars.compile(file);
-
+  
   return page(context);
 }
 
@@ -32,8 +32,7 @@ function build() {
   _.forEach(hbsTemplates, function(file, i) {
     var filePattern = path.dirname(file).split('src/templates/')[1],
         fileName = path.basename(file, '.hbs'),
-        template = renderTemplate(file);
-
+        template = renderTemplate(file),
         page = renderPage(template, 'src/templates/layouts/default.hbs');
 
     fs.outputFileSync(`dist/${fileName}.html`, page, 'utf8');
