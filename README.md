@@ -1,4 +1,4 @@
-# PullquoteJS
+# Pullquote
 Bookmarklet that creates images for social media to give users more context than a normal tweet or Facebook post. Pullquote can instantly create a picture quote from any user selected text on a website.
 
 Utilizes [Frontend BuildKit](https://github.com/NUKnightLab/frontend-buildkit) a basic starter kit for frontend projects
