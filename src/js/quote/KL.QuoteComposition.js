@@ -75,7 +75,6 @@ module.exports = KL.Class.extend({
 	},
 
 	_onContentEdit: function() {
-		trace("CONTENT EDIT");
 		this.data.quote = this._el.blockquote_p.innerHTML;
 		var quote_detail = this._determineTextSize(this.data.quote);
 		this._el.blockquote.className = quote_detail.sizeclass;
@@ -84,10 +83,8 @@ module.exports = KL.Class.extend({
 	_onDownload: function(e) {
 		if (this.options.download_ready) {
 			this._el.button_download.click();
-			trace("download ready");
 
 		} else {
-			trace("download prepare");
 			this._getImage(e);
 		}
 		
@@ -97,10 +94,12 @@ module.exports = KL.Class.extend({
 	_getImage:function(e) {
 		// width 1010
 		// height 566
-		var _self = this;
-		var api_url = "https://ccq6cw2sih.execute-api.us-east-1.amazonaws.com/prod/PhantomJS?width=1010&height=566&url=https://zachwise.github.io/pullquote-design/compiled/index.html?quote=This%20is%20a%20quote&cite=John%20Doe&image=https://c1.staticflickr.com/9/8649/15902333213_f11d2b6ba6_o.jpg&width=505&height=283";
+		var _self = this,
+			service_url = "https://ccq6cw2sih.execute-api.us-east-1.amazonaws.com/prod/PhantomJS?width=1010&height=566&url=",
+			render_page_url = "https://zachwise.github.io/pullquote-design/compiled/index.html",
+			url_vars = "?",
+			api_url = "";
 
-		var url_vars = "?";
 		url_vars += "anchor=" + this.options.anchor;
 		url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
 		url_vars += "&cite=" + this._el.citation.innerHTML;
@@ -115,6 +114,8 @@ module.exports = KL.Class.extend({
 		// TEMP until I get access to the screenshot.knightlab.com API
 		// var win = window.open(window.location.origin + "/render.html" + url_vars, '_blank');
 		// win.focus();
+
+		api_url = service_url + render_page_url + url_vars;
 
 		KL.Data.getJSON(api_url, function(d) {
 			trace("JSON WORKS");
