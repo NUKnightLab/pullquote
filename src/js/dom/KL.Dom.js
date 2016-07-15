@@ -2,7 +2,7 @@
 	Utilities for working with the DOM
 ================================================== */
 
-KL.Dom = {
+module.exports = {
 
 	get: function(id) {
 		return (typeof id === 'string' ? document.getElementById(id) : id);
@@ -63,25 +63,8 @@ KL.Dom = {
 	        el = el.offsetParent;
 	    }
 	    return pos;
-	},
-
-	testProp: function(props) {
-		var style = document.documentElement.style;
-
-		for (var i = 0; i < props.length; i++) {
-			if (props[i] in style) {
-				return props[i];
-			}
-		}
-		return false;
 	}
 	
 };
 
-KL.Util.extend(KL.Dom, {
-	TRANSITION: KL.Dom.testProp(['transition', 'webkitTransition', 'OTransition', 'MozTransition', 'msTransition']),
-	TRANSFORM: KL.Dom.testProp(['transformProperty', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']),
 
-	TRANSLATE_OPEN: 'translate' + (KL.Browser.webkit3d ? '3d(' : '('),
-	TRANSLATE_CLOSE: KL.Browser.webkit3d ? ',0)' : ')'
-});

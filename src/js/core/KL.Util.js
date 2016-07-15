@@ -2,7 +2,7 @@
 	Class of utilities
 ================================================== */
 
-KL.Util = {
+module.exports = {
 	
 	extend: function (/*Object*/ dest) /*-> Object*/ {	// merge src properties into dest
 		var sources = Array.prototype.slice.call(arguments, 1);

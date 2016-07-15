@@ -4,7 +4,7 @@
 ================================================== */
 
 
-KL.DomUtil = {
+module.exports = {
 	get: function (id) {
 		return (typeof id === 'string' ? document.getElementById(id) : id);
 	},

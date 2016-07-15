@@ -4,7 +4,7 @@
 ================================================== */
 // TODO stamp
 
-KL.DomEvent = {
+module.exports = {
 	/* inpired by John Resig, Dean Edwards and YUI addEvent implementations */
 	addListener: function (/*HTMLElement*/ obj, /*String*/ type, /*Function*/ fn, /*Object*/ context) {
 		var id = KL.Util.stamp(fn),

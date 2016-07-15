@@ -1,0 +1,22 @@
+/* MIXINS
+================================================== */
+@mixin background-gradient($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+	background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+	background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+	background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+	background-repeat: repeat-x;
+}
+
+@mixin background-test($test:black, $testing:blue) {
+	background:$test;
+	color:$testing
+
+}
+
+@mixin mixblur($blur:5px) {
+	-webkit-filter: blur($blur);
+	-moz-filter: blur($blur);
+	-o-filter: blur($blur);
+	-ms-filter: blur($blur);
+	filter: blur($blur);
+}

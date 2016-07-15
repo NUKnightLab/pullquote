@@ -1,34 +1,58 @@
 /**
 	Pullquote
-	Designed and built by Zach Wise at Knight Lab
 */ 
+
+
+// Knight Lab Namespace
+KL = {};
+
+// Debug Mode
+KL.debug = true;
+
+
+/*	KL.Bind
+================================================== */
+KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
+	return function () {
+		return fn.apply(obj, arguments);
+	};
+};
 
 /*	Required Files
 	Webpack
 	https://webpack.github.io/
 ================================================== */
+
 // CORE
-	require("core/KL.js");
-	require("core/KL.Util.js");
-	require("core/KL.Class");
-	require("core/KL.Events");
-	require("core/KL.Browser");
-	require("core/KL.Load");
+KL.Util = 		require("core/KL.Util.js");
+KL.Class = 		require("core/KL.Class");
+KL.Events = 	require("core/KL.Events");
+KL.Browser = 	require("core/KL.Browser");
 
-// ANIMATION
-	require("animation/KL.Ease");
-	require("animation/KL.Animate");
+// // DOM
+KL.DomMixins = 	require("dom/KL.DomMixins");
+KL.Dom = 		require("dom/KL.Dom");
+KL.DomUtil = 	require("dom/KL.DomUtil");
+KL.DomEvent = 	require("dom/KL.DomEvent");
 
-// DOM
-	require("dom/KL.DomMixins");
-	require("dom/KL.Dom");
-	require("dom/KL.DomUtil");
-	require("dom/KL.DomEvent");
-	require("dom/KL.StyleSheet");
+// // QUOTE
+KL.QuoteComposition = require("quote/KL.QuoteComposition");
 
-// QUOTE
-	require("quote/KL.QuoteComposition");
-
+/*	Trace (console.log)
+	Wrapped in a function to allow a boolean switch
+	to show console log only if in debug mode. 
+================================================== */
+trace = function( msg ) {
+	if (KL.debug) {
+		if (window.console) {
+			console.log(msg);
+		} else if ( typeof( jsTrace ) != 'undefined' ) {
+			jsTrace.send( msg );
+		} else {
+			//alert(msg);
+		}
+	}
+}
 
 KL.Pullquote = (function() {
 
@@ -63,11 +87,6 @@ KL.Pullquote = (function() {
 		credit: ""
 	};
 
-	//this._el.menubar			= VCO.Dom.create('div', 'vco-menubar', this._el.container);
-	
-	// API URL
-	//this.api_url = "quotes.json";
-
 	// LOAD EXAMPLE QUOTES
 	this.load_quotes = function() {
 		this.vars = KL.Util.getUrlVars(window.location.href);
@@ -82,54 +101,13 @@ KL.Pullquote = (function() {
 		this.createComposition(this.data, "left", true);
 		this.createComposition(this.data, "right", true);
 		this.createComposition(this.data, false, false);
-
-		// KL.getJSON(api_url ,function(d) {
-		// 	this.createQuoteObjects(d);
-		// 	this.createCompositions(d);
-		// });
 	};
-
-	// CREATE COMPOSITIONS
-	// this.createCompositions = function(d) {
-
-	// 	this.quote_compositions = [];
-		
-	// 	// LAYOUT
-	// 	this.el.container.innerHTML = "";
-	// 	this.el.container_content = KL.Dom.create('div', 'editor-content', this.el.container);
-
-	// 	for (i=0; i < this.quotes.length; i++) {
-	// 		this.createComposition(this.quotes[i], false);
-	// 		this.createComposition(this.quotes[i], "left");
-	// 		this.createComposition(this.quotes[i], "right");
-	// 	}
-
-	// };
 
 	this.createComposition = function(d, anchor, use_image) {
 		var composition = new KL.QuoteComposition(d, {anchor:anchor, use_image:use_image});
 		composition.addTo(this.el.container_content);
 		this.quote_compositions.push(composition);
 	};
-
-	// this.createQuoteObjects = function(d) {
-	// 	this.quotes = [];
-
-	// 	for (i=0; i < d.quotes.length; i++) {
-	// 		var quote = {
-	// 			quote: "",
-	// 			cite: "",
-	// 			credit: "",
-	// 			headline:"",
-	// 			image: ""
-	// 		};
-
-	// 		quote = d.quotes[i];
-
-	// 		this.quotes.push(quote);
-
-	// 	}
-	// };
 
 	/*	EVENTS
 	================================================== */
