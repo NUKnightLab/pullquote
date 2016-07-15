@@ -1,9 +1,6 @@
 /*	KL.QuoteComposition
 ================================================== */
 
-// HTML TO CANVAS
-	// @codekit-prepend "../library/html2canvas.js";
-
 module.exports = KL.Class.extend({
 	
 	includes: [KL.Events, KL.DomMixins],
@@ -34,7 +31,8 @@ module.exports = KL.Class.extend({
 			cite: "Citation",
 			image: "Description",
 			headline: "Headline",
-			credit: ""
+			credit: "",
+			download: ""
 		};
 	
 		//Options
@@ -44,7 +42,7 @@ module.exports = KL.Class.extend({
 			classname: "",
 			base_classname: "kl-quotecomposition",
 			use_image: true,
-			download_rendered: false
+			download_ready: false
 		};
 	
 		this.animator = null;
@@ -84,67 +82,74 @@ module.exports = KL.Class.extend({
 	},
 
 	_onDownload: function(e) {
-		if (this.options.download_rendered) {
+		if (this.options.download_ready) {
 			this._el.button_download.click();
+			trace("download ready");
+
 		} else {
-			this._makeDownload(e);
+			trace("download prepare");
+			this._getImage(e);
 		}
 		
-		trace("download");
+		
+	},
+
+	_getImage:function(e) {
+		// width 1010
+		// height 566
+		var _self = this;
+		var api_url = "https://ccq6cw2sih.execute-api.us-east-1.amazonaws.com/prod/PhantomJS?width=1010&height=566&url=https://zachwise.github.io/pullquote-design/compiled/index.html?quote=This%20is%20a%20quote&cite=John%20Doe&image=https://c1.staticflickr.com/9/8649/15902333213_f11d2b6ba6_o.jpg&width=505&height=283";
+
+		var url_vars = "?";
+		url_vars += "anchor=" + this.options.anchor;
+		url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
+		url_vars += "&cite=" + this._el.citation.innerHTML;
+		url_vars += "&image=" + this.data.image;
+		url_vars += "&credit=" + this.data.credit;
+		url_vars += "&use_image=" + this.options.use_image;
+
+		if (!window.location.origin) {
+			window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+		}
+
+		// TEMP until I get access to the screenshot.knightlab.com API
+		// var win = window.open(window.location.origin + "/render.html" + url_vars, '_blank');
+		// win.focus();
+
+		KL.Data.getJSON(api_url, function(d) {
+			trace("JSON WORKS");
+			trace(d.screenshotLocation);
+			_self.data.download = d.screenshotLocation;
+			_self._el.button_download.href = _self.data.download;
+			_self._el.button_download.download = "pullquote.png";
+			_self.options.download_ready = true;
+			_self._onDownload();
+		});
 	},
 
 	_makeDownload: function(e) {
-		// var url_vars = "?";
-		// url_vars += "anchor=" + this.options.anchor;
-		// url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
-		// url_vars += "&cite=" + this._el.citation.innerHTML;
-		// url_vars += "&image=" + this.data.image;
-		// url_vars += "&credit=" + this.data.credit;
-		
-		// if (!window.location.origin) {
-		// 	window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
-		// }
-		// var win = window.open(window.location.origin + "/composition.html" + url_vars, '_blank');
-		// win.focus();
 
+		// CANVAS DOWNLOAD
+		// var _self = this;
+		// this._el.composition_container.style.transformOrigin = "left top";
+		// this._el.composition_container.style.transform = "scale(2)";
 
-		var _self = this;
-		// _self._el.composition_container.style.transform="scale(1.5)";
-		// _self._el.composition_container.style.position="static";
-		// _self._el.composition_container.style.width="1010px";
-		// _self._el.composition_container.style.height="566px";
-		// _self._el.background.style.width="1010px";
-		// _self._el.background.style.height="566px";
-		// _self._el.image.style.width="1010px";
-		// _self._el.image.style.height="566px";
-		// //_self._el.composition_container.style.display="block";
-		// _self._el.container.style.float="none";
-		this._el.composition_container.style.transformOrigin = "left top";
-		this._el.composition_container.style.transform = "scale(2)";
-		// _self._el.composition_container.style.width="1010px";
-		// _self._el.composition_container.style.height="566px";
+		// html2canvas(this._el.composition_container, {
+		// 	useCORS:"true",
+		// 	letterRendering:"true",
+		// 	logging:true,
+		// 	width:1010,
+		// 	height:566,
+		// 	onrendered: function(canvas) {
+		// 		var dataURL = canvas.toDataURL('image/png');
+		// 		_self._el.button_download.href=dataURL;
+		// 		_self._el.button_download.download = "pullquote.png";
+		// 		_self.options.download_rendered = true;
+		// 		_self._onDownload();
+		// 		_self._el.composition_container.style.transform="scale(1)";
+		// 	}
+		// });
 
-		html2canvas(this._el.composition_container, {
-			useCORS:"true",
-			letterRendering:"true",
-			logging:true,
-			width:1010,
-			height:566,
-			onrendered: function(canvas) {
-				
-				var dataURL = canvas.toDataURL('image/png');
-				
-				_self._el.button_download.href=dataURL;
-				_self._el.button_download.download = "pullquote.png";
-				_self.options.download_rendered = true;
-				_self._onDownload();
-				_self._el.composition_container.style.transform="scale(1)";
-				// _self._el.composition_container.style.width="505px";
-				// _self._el.composition_container.style.height="283px";
-
-				
-			}
-		});
 	},
 
 

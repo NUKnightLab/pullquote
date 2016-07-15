@@ -29,13 +29,16 @@ KL.Class = 		require("core/KL.Class");
 KL.Events = 	require("core/KL.Events");
 KL.Browser = 	require("core/KL.Browser");
 
-// // DOM
+// DOM
 KL.DomMixins = 	require("dom/KL.DomMixins");
 KL.Dom = 		require("dom/KL.Dom");
 KL.DomUtil = 	require("dom/KL.DomUtil");
 KL.DomEvent = 	require("dom/KL.DomEvent");
 
-// // QUOTE
+// DATA
+KL.Data = 		require("data/KL.Data");
+
+// QUOTE
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
 
 /*	Trace (console.log)
@@ -78,12 +81,13 @@ KL.Pullquote = (function() {
 	// Quote Compositions
 	this.quote_compositions = [];
 
-	// Data
+	// DATA
 	this.data = {
 		quote: "Quote",
 		cite: "Citation",
-		image: "https://static01.nyt.com/images/2016/07/05/us/06OBAMACLINTON-hp/06OBAMACLINTON-hp-facebookJumbo.jpg",
+		image: "assets/placeholder.jpg",
 		headline: "Headline",
+		anchor:false,
 		credit: ""
 	};
 
