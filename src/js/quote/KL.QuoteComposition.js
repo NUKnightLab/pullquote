@@ -96,7 +96,7 @@ module.exports = KL.Class.extend({
 		// height 566
 		var _self = this,
 			service_url = "https://ccq6cw2sih.execute-api.us-east-1.amazonaws.com/prod/PhantomJS?width=1010&height=566&url=",
-			render_page_url = "https://zachwise.github.io/pullquote-design/compiled/index.html",
+			render_page_url = "https://nuknightlab.github.io/pullquote/dist/render.html",
 			url_vars = "?",
 			api_url = "";
 
@@ -111,15 +111,9 @@ module.exports = KL.Class.extend({
 			window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
 		}
 
-		// TEMP until I get access to the screenshot.knightlab.com API
-		// var win = window.open(window.location.origin + "/render.html" + url_vars, '_blank');
-		// win.focus();
-
 		api_url = service_url + render_page_url + url_vars;
 
 		KL.Data.getJSON(api_url, function(d) {
-			trace("JSON WORKS");
-			trace(d.screenshotLocation);
 			_self.data.download = d.screenshotLocation;
 			_self._el.button_download.href = _self.data.download;
 			_self._el.button_download.download = "pullquote.png";
@@ -131,6 +125,7 @@ module.exports = KL.Class.extend({
 	_makeDownload: function(e) {
 
 		// CANVAS DOWNLOAD
+		// Holding onto this until we get PhantomJS sorted out.
 		// var _self = this;
 		// this._el.composition_container.style.transformOrigin = "left top";
 		// this._el.composition_container.style.transform = "scale(2)";
