@@ -5,9 +5,9 @@ var webpack = require('webpack'),
 
 module.exports = {
   context: path.join(__dirname),
-  entry: [
-    "./src/js/index.js"
-  ],
+  entry: {
+    index: "./src/js/index.js"
+  },
   output: {
     path: path.join(__dirname, "./dist/js"),
     filename: "[name].js"
