@@ -2,7 +2,7 @@
 	DOM methods used regularly
 	Assumes there is a _el.container and animator
 ================================================== */
-KL.DomMixins = {
+module.exports = {
 	
 	/*	Adding, Hiding, Showing etc
 	================================================== */
@@ -57,15 +57,15 @@ KL.DomMixins = {
 	================================================== */
 	
 	onLoaded: function() {
-		this.fire("loaded", this.data);
+		this.fireEvent("loaded", this.data);
 	},
 	
 	onAdd: function() {
-		this.fire("added", this.data);
+		this.fireEvent("added", this.data);
 	},
 
 	onRemove: function() {
-		this.fire("removed", this.data);
+		this.fireEvent("removed", this.data);
 	},
 	
 	/*	Set the Position

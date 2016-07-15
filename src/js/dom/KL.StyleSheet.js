@@ -2,7 +2,7 @@
 	Style Sheet Object
 ================================================== */
 
-KL.StyleSheet = KL.Class.extend({
+module.exports = KL.Class.extend({
 	
 	includes: [KL.Events],
 	

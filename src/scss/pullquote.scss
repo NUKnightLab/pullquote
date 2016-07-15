@@ -1,0 +1,317 @@
+/*!
+	Pullquote
+	Knight Lab
+	Designed and built by Zach Wise
+*/
+
+/* SASS IMPORT
+================================================== */
+@import "variables";
+@import "mixins";
+
+/* TYPOGRAPHY
+================================================== */
+@import url(https://fonts.googleapis.com/css?family=Lora:400,400italic);
+@import url(https://fonts.googleapis.com/css?family=Lato:700,700i,400,400i);
+
+
+/* BUTTON
+================================================== */
+.kl-button, .kl-button:hover {
+	background-image: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border-radius: 0;
+	border-style: solid;
+	border-width: 0;
+	cursor: pointer;
+	font-family: $font-family-sans-serif;
+	font-weight: normal;
+	line-height: normal;
+	margin: 0 0 1.11111rem;
+	position: relative;
+	//text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	padding: 17px 32px 17px 32px;
+	font-size: 16px;
+	background-color: #FFFFFF;
+	border-color: #DDDDDD;
+	color: #333333;
+	border-radius: 4px;
+	transition: background-color 300ms ease-out;
+	color: #555555;
+	box-shadow: none;
+	transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	border-width: 1px;
+
+	margin-top:0px;
+}
+
+.kl-button span {
+	transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kl-button:hover {
+	text-shadow: none !important;
+	box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.4);
+}
+.kl-button-group {
+	width:$quote-composition-width;
+}
+
+/* QUOTE
+================================================== */
+.kl-quotecomposition {
+	margin:0;
+	display:inline-block;
+
+	.kl-quotecomposition-container {
+		position:relative;
+		width:$quote-composition-width;
+		height:$quote-composition-height;
+		background-color:#000;
+		display:block;
+
+		.kl-quotecomposition-text {
+			position:absolute;
+			display:flex;
+			align-items: center;
+			justify-content: center;
+			height:100%;
+			width:100%;
+			z-index:3;
+			overflow:hidden;
+
+			blockquote {
+				color:#EEE;
+				font-family: $font-family-serif;
+				padding:0;
+				font-size: ($font-size-base * 1.2);
+				line-height:($font-size-base * 1.6);
+				font-weight:400;
+				border:none;
+				margin:0;
+
+				margin-left:5%;
+				margin-right:5%;
+
+				width:100%;
+				text-shadow: 2px 2px 4px fadeout(#000, 25%);
+				p {
+					transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+					text-align:left;
+					
+					&[contenteditable="true"] {
+						//padding: 5px;
+						//outline: 2px dashed fadeout(#CCC, 75);
+					}
+					&[contenteditable="true"]:hover {
+						//padding: 10px; 
+						outline: 2px dashed #CCC;
+					}
+
+					&:before {
+						content:"“";
+						color:$gray-light;
+						//margin:-15px;
+					}
+					&:after {
+						content:"”";
+						color:$gray-light;
+					}
+				}
+				&.kl-quote-large {
+					p {
+						font-size: 30px;
+						line-height: 38px;
+					}
+				}
+				&.kl-quote-small {
+					p {
+						font-size: 17px;
+						line-height: 22px;
+					}
+				}
+				&.kl-quote-ellipsis {
+					p {
+						font-size: 17px;
+						line-height: 22px;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-line-clamp: 9;
+						-webkit-box-orient: vertical; 
+					}
+				}
+				&.kl-quote-ellipsis-non-webkit {
+					p {
+						font-size: 17px;
+						line-height: 22px;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-line-clamp: 9;
+						-webkit-box-orient: vertical; 
+						height:200px;
+						&:after {
+							position: absolute;
+							left: 25px;
+							bottom:25px;
+							
+							content: '\2026';
+						}
+					}
+
+				}
+				cite {
+					font-family: $font-family-sans-serif;
+					font-style: italic;
+					font-weight:700;
+					padding: 5px;
+					padding-right:10px;
+					&[contenteditable="true"] {
+						//padding: 5px;
+						//outline: 2px dashed fadeout(#CCC, 75);
+					}
+					&[contenteditable="true"]:hover {
+						//padding: 10px; 
+						outline: 2px dashed #CCC;
+					}
+					&:before {
+						content:"— ";
+						color:$gray-light;
+					}
+					display:block;
+					font-size: 11px;
+					text-align:right;
+					position:absolute;
+					bottom:0;
+					right:0;
+				}
+			}
+		}
+
+		.kl-quotecomposition-background {
+			width:$quote-composition-width;
+			height:$quote-composition-height;
+			z-index:2;
+			opacity:0.6;
+			position:absolute;
+			top:0;
+			left:0;
+			background-color:#000;
+			
+		}
+
+		.kl-quotecomposition-image {
+			
+			z-index:1;
+			width:100%;
+			//opacity:0.5;
+			width:$quote-composition-width;
+			height:$quote-composition-height;
+			background-size:cover;
+			background-position: center center;
+			
+		}
+	}
+
+	&.kl-anchor-right {
+		.kl-quotecomposition-container {
+			.kl-quotecomposition-text {
+				blockquote {
+					p {
+						text-align:right;
+						margin-left:50%;
+						font-size: ($font-size-base * 1);
+						line-height:($font-size-base * 1.4);
+					}
+					&.kl-quote-ellipsis-non-webkit {
+						p {
+							&:after {
+								position: absolute;
+								left:0;
+								right: 25px;
+								bottom:30px;
+							}
+						}
+
+					}
+				}
+
+			}
+			.kl-quotecomposition-image {
+				//opacity:0.7;
+			}
+			.kl-quotecomposition-background {
+				opacity:1;
+				width:60%;
+				margin-left:40%;
+				background-color:transparent;
+				@include background-gradient(rgba(0,0,0,0.0001), rgba(0,0,0,0.6), 0%, 15%);
+			}
+		}
+
+	}
+	&.kl-anchor-left {
+		.kl-quotecomposition-container {
+			.kl-quotecomposition-text {
+				blockquote {
+					p {
+						text-align:left;
+						margin-right:50%;
+						font-size: ($font-size-base * 1);
+						line-height:($font-size-base * 1.4);
+					}
+				}
+			}
+
+			.kl-quotecomposition-image {
+				//opacity:0.7;
+			}
+			.kl-quotecomposition-background {
+				opacity:1;
+				width:60%;
+				background-color:transparent;
+				@include background-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.0001), 85%, 100%);
+
+			}
+		}
+		
+	}
+	&.kl-anchor-left, &.kl-anchor-right {
+		.kl-quotecomposition-container {
+			.kl-quotecomposition-background {
+				// margin:0;
+				// background-color:#000;
+				// opacity:1;
+				// width:100%;
+			}
+			.kl-quotecomposition-text {
+				blockquote {
+					&.kl-quote-ellipsis {
+						p {
+							font-size: 17px;
+							line-height: 22px;
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 9;
+							-webkit-box-orient: vertical;  
+						}
+					}
+					&.kl-quote-ellipsis-non-webkit {
+						p {
+							font-size: 17px;
+							line-height: 22px;
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 9;
+							-webkit-box-orient: vertical; 
+							height:200px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}

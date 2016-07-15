@@ -1,20 +1,10 @@
 /*	KL.QuoteComposition
 ================================================== */
-// TODO: Animate into existince
-
-// CORE
-	// @codekit-prepend "core/KL.js";
-	// @codekit-prepend "core/KL.Util.js";
-	// @codekit-prepend "core/KL.Class.js";
-	// @codekit-prepend "core/KL.Events.js";
-	// @codekit-prepend "core/KL.Browser.js";
-	// @codekit-prepend "core/KL.Load.js";
-	// @codekit-prepend "data/KL.Data.js";
 
 // HTML TO CANVAS
 	// @codekit-prepend "../library/html2canvas.js";
 
-KL.QuoteComposition = KL.Class.extend({
+module.exports = KL.Class.extend({
 	
 	includes: [KL.Events, KL.DomMixins],
 	
@@ -83,7 +73,7 @@ KL.QuoteComposition = KL.Class.extend({
 	/*	Events
 	================================================== */
 	_onMouseClick: function() {
-		this.fire("clicked", this.options);
+		this.fireEvent("clicked", this.options);
 	},
 
 	_onContentEdit: function() {
@@ -160,7 +150,7 @@ KL.QuoteComposition = KL.Class.extend({
 
 
 	_onLoaded: function() {
-		this.fire("loaded", this.options);
+		this.fireEvent("loaded", this.options);
 	},
 	
 	/*	Private Methods

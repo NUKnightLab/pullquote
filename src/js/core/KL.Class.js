@@ -3,6 +3,8 @@
 ================================================== */
 KL.Class = function () {};
 
+module.exports = KL.Class;
+
 KL.Class.extend = function (/*Object*/ props) /*-> Class*/ {
  
 	// extended class with the new prototype
