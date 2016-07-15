@@ -1,7 +1,7 @@
 /*	KL.Events
 	adds custom events functionality to VCO classes
 ================================================== */
-KL.Events = {
+module.exports = {
 	addEventListener: function (/*String*/ type, /*Function*/ fn, /*(optional) Object*/ context) {
 		var events = this._vco_events = this._vco_events || {};
 		events[type] = events[type] || [];
@@ -52,8 +52,7 @@ KL.Events = {
 
 		return this;
 	}
+
+
 };
 
-KL.Events.on	= KL.Events.addEventListener;
-KL.Events.off	= KL.Events.removeEventListener;
-KL.Events.fire = KL.Events.fireEvent;
