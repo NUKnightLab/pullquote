@@ -6,11 +6,13 @@ var webpack = require('webpack'),
 module.exports = {
   context: path.join(__dirname),
   entry: {
-    index: "./src/js/index.js"
+    script: "./src/js/script.js"
   },
   output: {
     path: path.join(__dirname, "./dist/js"),
-    filename: "[name].js"
+    filename: "[name].js",
+    libraryTarget: 'var',
+    library: "[name]"
   },
   resolve: {
     root: componentPath
