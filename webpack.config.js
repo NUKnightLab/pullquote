@@ -9,12 +9,13 @@ module.exports = {
         bookmarklet: "./src/js/bookmarklet.js",
         overlay: "./src/js/overlay.js",
         compositions: "./src/js/compositions.js",
-        render: "./src/js/render.js",
-        index: "./src/js/index.js"
+        render: "./src/js/render.js"
     },
     output: {
         path: path.join(__dirname, "./dist/js"),
-        filename: "[name].js"
+        filename: "[name].js",
+        libraryTarget: 'var',
+        library: "[name]"
     },
     resolve: {
         root: componentPath

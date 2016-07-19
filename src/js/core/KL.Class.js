@@ -1,67 +1,67 @@
 /*	KL.Class
-	Class powers the OOP facilities of the library.
+    Class powers the OOP facilities of the library.
 ================================================== */
 KL.Class = function () {};
 
 module.exports = KL.Class;
 
 KL.Class.extend = function (/*Object*/ props) /*-> Class*/ {
- 
-	// extended class with the new prototype
-	var NewClass = function () {
-		if (this.initialize) {
-			this.initialize.apply(this, arguments);
-		}
-	};
 
-	// instantiate class without calling constructor
-	var F = function () {};
-	F.prototype = this.prototype;
-	var proto = new F();
+    // extended class with the new prototype
+    var NewClass = function () {
+        if (this.initialize) {
+            this.initialize.apply(this, arguments);
+        }
+    };
 
-	proto.constructor = NewClass;
-	NewClass.prototype = proto;
+    // instantiate class without calling constructor
+    var F = function () {};
+    F.prototype = this.prototype;
+    var proto = new F();
 
-	// add superclass access
-	NewClass.superclass = this.prototype;
+    proto.constructor = NewClass;
+    NewClass.prototype = proto;
 
-	// add class name
-	//proto.className = props;
+    // add superclass access
+    NewClass.superclass = this.prototype;
 
-	//inherit parent's statics
-	for (var i in this) {
-		if (this.hasOwnProperty(i) && i !== 'prototype' && i !== 'superclass') {
-			NewClass[i] = this[i];
-		}
-	}
+    // add class name
+    //proto.className = props;
 
-	// mix static properties into the class
-	if (props.statics) {
-		KL.Util.extend(NewClass, props.statics);
-		delete props.statics;
-	}
+    //inherit parent's statics
+    for (var i in this) {
+        if (this.hasOwnProperty(i) && i !== 'prototype' && i !== 'superclass') {
+            NewClass[i] = this[i];
+        }
+    }
 
-	// mix includes into the prototype
-	if (props.includes) {
-		KL.Util.extend.apply(null, [proto].concat(props.includes));
-		delete props.includes;
-	}
+    // mix static properties into the class
+    if (props.statics) {
+        KL.Util.extend(NewClass, props.statics);
+        delete props.statics;
+    }
 
-	// merge options
-	if (props.options && proto.options) {
-		props.options = KL.Util.extend({}, proto.options, props.options);
-	}
+    // mix includes into the prototype
+    if (props.includes) {
+        KL.Util.extend.apply(null, [proto].concat(props.includes));
+        delete props.includes;
+    }
 
-	// mix given properties into the prototype
-	KL.Util.extend(proto, props);
+    // merge options
+    if (props.options && proto.options) {
+        props.options = KL.Util.extend({}, proto.options, props.options);
+    }
 
-	// allow inheriting further
-	NewClass.extend = KL.Class.extend;
+    // mix given properties into the prototype
+    KL.Util.extend(proto, props);
 
-	// method for adding properties to prototype
-	NewClass.include = function (props) {
-		KL.Util.extend(this.prototype, props);
-	};
+    // allow inheriting further
+    NewClass.extend = KL.Class.extend;
 
-	return NewClass;
+    // method for adding properties to prototype
+    NewClass.include = function (props) {
+        KL.Util.extend(this.prototype, props);
+    };
+
+    return NewClass;
 };
