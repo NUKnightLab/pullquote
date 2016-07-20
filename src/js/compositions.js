@@ -25,17 +25,12 @@ KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
 
 // CORE
 KL.Util = require("core/KL.Util.js");
-KL.Class = require("core/KL.Class");
-KL.Events =	require("core/KL.Events");
 KL.Browser = require("core/KL.Browser");
 
 // DOM
-KL.DomMixins = require("dom/KL.DomMixins");
-KL.Dom = require("dom/KL.Dom");
-KL.DomUtil = require("dom/KL.DomUtil");
 KL.DomEvent = require("dom/KL.DomEvent");
 
-// DATA
+// Data
 KL.Data = require("data/KL.Data");
 
 // QUOTE
@@ -57,13 +52,22 @@ trace = function( msg ) {
     }
 }
 
+//extrapolating function for create div and add className
+create = function(tagName, className, container) {
+    var el = document.createElement(tagName);
+    el.className = className;
+    if (container) {
+        container.appendChild(el);
+    }
+    return el;
+}
+
 KL.Pullquote = (function() {
 
     // DOM ELEMENTS
     this.el = {
-        container: KL.Dom.get("pullquote-container"),
+        container: document.getElementById("pullquote-container"),
         container_content: {},
-
     };
 
     // OPTIONS
@@ -98,7 +102,7 @@ KL.Pullquote = (function() {
 
         // LAYOUT
         this.el.container.innerHTML = "";
-        this.el.container_content = KL.Dom.create('div', 'editor-content', this.el.container);
+        this.el.container_content = create('div', 'editor-content', this.el.container);
 
         // Create Quotes
         this.createComposition(this.data, false, true);
@@ -109,7 +113,7 @@ KL.Pullquote = (function() {
 
     this.createComposition = function(d, anchor, use_image) {
         var composition = new KL.QuoteComposition(d, {anchor:anchor, use_image:use_image});
-        composition.addTo(this.el.container_content);
+        this.el.container_content.appendChild(composition._el.container);
         this.quote_compositions.push(composition);
     };
 
@@ -120,10 +124,6 @@ KL.Pullquote = (function() {
         this.options.width = window.innerWidth;
         this.options.height = window.innerHeight;
     }
-
-    /*	LISTENERS
-    ================================================== */
-    //KL.DomEvent.addListener(this.el.btn_quote_create, 'click', this._onQuoteCreate, this);
 
     /*	INIT
     ================================================== */
