@@ -24,22 +24,15 @@ KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
 
 // CORE
 KL.Util = require("core/KL.Util.js");
-KL.Class = require("core/KL.Class");
-
-// DOM
-KL.DomMixins = require("dom/KL.DomMixins");
-KL.Dom = require("dom/KL.Dom");
-KL.DomUtil = require("dom/KL.DomUtil");
-KL.DomEvent = require("dom/KL.DomEvent");
 
 KL.PullquoteRender = (function() {
 
     // DOM ELEMENTS
     this.el = {
-        composition: KL.Dom.get("kl-quote-comp"),
-        quote_text:	KL.Dom.get("kl-quote-text"),
-        cite: KL.Dom.get("kl-quote-cite"),
-        image: KL.Dom.get("kl-quote-image")
+        composition: document.getElementById("kl-quote-comp"),
+        quote_text:	document.getElementById("kl-quote-text"),
+        cite: document.getElementById("kl-quote-cite"),
+        image: document.getElementById("kl-quote-image")
     };
 
     // DATA
