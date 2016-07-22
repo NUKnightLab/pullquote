@@ -10,13 +10,13 @@
     "ncp": "^2.0.0",
     "node-sass": "^3.8.0",
     "parallelshell": "^2.0.0",
-    "webpack": "^1.13.1",
-    "front-matter": "^2.1.0"
+    "webpack": "^1.13.1"
   },
   "devDependencies": {
     "cssmin": "^0.4.3",
     "chokidar": "^1.6.0",
     "exit-hook": "^1.1.1",
+    "front-matter": "^2.1.0",
     "fs-extra": "^0.30.0",
     "globby": "^5.0.0",
     "lodash": "^4.13.1",
@@ -31,7 +31,8 @@
     "clean": "rimraf dist/",
     "watch": "node tasks/watch.js",
     "server": "http-server ./dist -c-1",
-    "compile": "npm run templates && npm run sass",
+    "compile": "npm run templates && npm run copy && npm run sass",
+    "copy": "ncp src/assets/ dist/assets --stopOnErr",
     "sass": "node-sass -o dist/css -q --output-style compact src/scss/",
     "templates": "node tasks/compile-hbs.js",
     "test": "echo \"Error: no test specified\" && exit 1"
