@@ -36,6 +36,8 @@ KL.Data = require("data/KL.Data");
 // QUOTE
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
 
+_ = require("lodash");
+
 /*	Trace (console.log)
     Wrapped in a function to allow a boolean switch
     to show console log only if in debug mode.
@@ -98,7 +100,7 @@ KL.Pullquote = (function() {
     // LOAD EXAMPLE QUOTES
     this.load_quotes = function() {
         this.vars = KL.Util.getUrlVars(window.location.href);
-        KL.Util.mergeData(this.data, vars);
+        _.assign(this.data, vars);
 
         // LAYOUT
         this.el.container.innerHTML = "";
