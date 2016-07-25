@@ -4,6 +4,8 @@
 ================================================== */
 // TODO stamp
 
+KL.Util = require("core/KL.Util.js");
+
 module.exports = {
     /* inpired by John Resig, Dean Edwards and YUI addEvent implementations */
     addListener: function (/*HTMLElement*/ obj, /*String*/ type, /*Function*/ fn, /*Object*/ context) {

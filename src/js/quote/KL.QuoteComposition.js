@@ -58,8 +58,8 @@ module.exports = KL.Class.extend({
         this.animator = null;
 
         // Merge Data and Options
-        KL.Util.mergeData(this.options, options);
-        KL.Util.mergeData(this.data, data);
+        _.assign(this.options, options);
+        _.assign(this.data, data);
 
         this._el.container = create("div", this.options.base_classname);
 
