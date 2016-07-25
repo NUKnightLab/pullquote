@@ -35,6 +35,9 @@ KL.Data = require("data/KL.Data");
 // QUOTE
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
 
+// Helper Function
+KL.Helper = require("helpers/KL.Helper");
+
 _ = require("lodash");
 
 /*	Trace (console.log)
@@ -51,16 +54,6 @@ trace = function( msg ) {
             //alert(msg);
         }
     }
-}
-
-//extrapolating function for create div and add className
-create = function(tagName, className, container) {
-    var el = document.createElement(tagName);
-    el.className = className;
-    if (container) {
-        container.appendChild(el);
-    }
-    return el;
 }
 
 KL.Pullquote = (function() {
@@ -122,7 +115,7 @@ KL.Pullquote = (function() {
 
         // LAYOUT
         el.container.innerHTML = "";
-        el.container_content = create('div', 'editor-content', el.container);
+        el.container_content = KL.Helper.create('div', 'editor-content', el.container);
 
         // Create Quotes
         createComposition(data, false, true);

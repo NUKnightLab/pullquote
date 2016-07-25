@@ -5,17 +5,8 @@ KL.Class = require("core/KL.Class");
 
 module.exports = KL.Class.extend({
 
-    includes: [KL.Events, KL.DomMixins],
+    includes: [KL.Events, KL.DomMixins, KL.Helper],
     _el: {},
-
-    create: function(tagName, className, container) {
-        var el = document.createElement(tagName);
-        el.className = className;
-        if (container) {
-            container.appendChild(el);
-        }
-        return el;
-    },
 
     /*	Constructor
     ================================================== */
@@ -61,7 +52,7 @@ module.exports = KL.Class.extend({
         _.assign(this.options, options);
         _.assign(this.data, data);
 
-        this._el.container = create("div", this.options.base_classname);
+        this._el.container = KL.Helper.create("div", this.options.base_classname);
 
         this._updateClassName();
 
@@ -222,17 +213,17 @@ module.exports = KL.Class.extend({
     _initLayout: function () {
 
         // Create Layout
-        this._el.composition_container 	= create("div", "kl-quotecomposition-container", this._el.container);
-        this._el.composition_text = create("div", "kl-quotecomposition-text", this._el.composition_container);
-        this._el.blockquote	= create("blockquote", "", this._el.composition_text);
-        this._el.blockquote_p = create("p", "", this._el.blockquote);
-        this._el.citation = create("cite", "", this._el.blockquote);
-        this._el.background	= create("div", "kl-quotecomposition-background", this._el.composition_container);
-        this._el.image = create("div", "kl-quotecomposition-image", this._el.composition_container);
+        this._el.composition_container 	= KL.Helper.create("div", "kl-quotecomposition-container", this._el.container);
+        this._el.composition_text = KL.Helper.create("div", "kl-quotecomposition-text", this._el.composition_container);
+        this._el.blockquote	= KL.Helper.create("blockquote", "", this._el.composition_text);
+        this._el.blockquote_p = KL.Helper.create("p", "", this._el.blockquote);
+        this._el.citation = KL.Helper.create("cite", "", this._el.blockquote);
+        this._el.background	= KL.Helper.create("div", "kl-quotecomposition-background", this._el.composition_container);
+        this._el.image = KL.Helper.create("div", "kl-quotecomposition-image", this._el.composition_container);
 
         // Create Buttons
-        this._el.button_group = create("div", "kl-button-group", this._el.container);
-        this._el.button_download = create("a", "kl-button kl-button-right", this._el.button_group);
+        this._el.button_group = KL.Helper.create("div", "kl-button-group", this._el.container);
+        this._el.button_download = KL.Helper.create("a", "kl-button kl-button-right", this._el.button_group);
 
         this._el.button_download.innerHTML = "Save";
 
