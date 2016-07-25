@@ -24,7 +24,6 @@ KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
 ================================================== */
 
 // CORE
-KL.Util = require("core/KL.Util.js");
 KL.Browser = require("core/KL.Browser");
 
 // DOM
@@ -97,9 +96,28 @@ KL.Pullquote = (function() {
         credit: ""
     };
 
+    this.getURLVars = function(string) {
+      var urlVars = {},
+          str = string.toString();
+
+      if(string.match('&#038;') || (string.match('&amp'))) {
+        var match = string.match('&#038') || string.match('&amp');
+        str = string.replace(match, '&');
+      }
+
+      urlVars = str.split('?')[1].split('&');
+
+      for(var i=0; i<urlVars.length; i++) {
+        varObj = urlVars[i].split('=');
+        urlVars[varObj[0]] = varObj[1];
+      }
+
+      return urlVars;
+    }
+
     // LOAD EXAMPLE QUOTES
     this.load_quotes = function() {
-        this.vars = KL.Util.getUrlVars(window.location.href);
+        this.vars = this.getURLVars(window.location.href);
         _.assign(this.data, vars);
 
         // LAYOUT
