@@ -137,16 +137,8 @@ KL.Pullquote = (function() {
         quote_compositions.push(composition);
     };
 
-    /*	EVENTS
-    ================================================== */
-    window.onresize = function(event) {
-        options.width = window.innerWidth;
-        options.height = window.innerHeight;
-    }
-
     /*	INIT
     ================================================== */
     load_quotes();
-
 
 })();
