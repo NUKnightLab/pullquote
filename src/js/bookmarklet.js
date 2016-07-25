@@ -5,20 +5,34 @@ function iFrame() {
 
     function init() {
         event.preventDefault();
+        text = grabTextSelection();
+        url = composeURL(text, "assets/placeholder.jpg", "publication name")
         bookMarklet = document.createElement('div');
         bookMarklet.className = 'bookMarklet';
-        bookMarklet.innerHTML = "<button class='closeButton' onClick='bookmarklet.iFrame().closeiFrame()'></button><iframe src='compositions.html?quote=whatever quote&image=assets/placeholder.jpg&cite=publication name'></iframe><div class='backdrop'></div>";
+        bookMarklet.innerHTML = "<button class='closeButton' onClick='bookmarklet.iFrame().closeiFrame()'></button><iframe src='" + url + "'></iframe><div class='backdrop'></div>";
 
         document.body.appendChild(bookMarklet);
 
         return false;
+    }
 
-        //var event = new CustomEvent("keydown");
-        //window.addEventListener("keydown", function() {
-        //  event.stopPropagation();
-        //}, false)
+    function grabTextSelection() {
+      var text = "";
+      text = window.getSelection().toString();
 
-        //window.onkeypress = window.dispatchEvent(event);
+      return text;
+    }
+
+    function composeURL(quote, image, cite) {
+      //compositions.html?quote=whatever quote&image=assets/placeholder.jpg&cite=publication name
+      var url,
+          q = "quote=" + quote,
+          i = "image=" + image,
+          c = "cite=" + cite;
+
+      url = "compositions.html?" + q + "&" + i + "&" + c;
+
+      return url;
     }
 
     function closeiFrame() {
