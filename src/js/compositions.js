@@ -66,28 +66,28 @@ create = function(tagName, className, container) {
 KL.Pullquote = (function() {
 
     // DOM ELEMENTS
-    this.el = {
+    var el = {
         container: document.getElementById("pullquote-container"),
         container_content: {},
-    };
+    },
 
     // OPTIONS
-    this.options = {
+    options = {
         width: window.innerWidth,
         height: window.innerHeight,
-    };
+    },
 
     // SLIDER
-    this.slider = {};
+    slider = {},
 
     // Quote Objects
-    this.quotes = [];
+    quotes = [],
 
     // Quote Compositions
-    this.quote_compositions = [];
+    quote_compositions = [],
 
     // DATA
-    this.data = {
+    data = {
         quote: "Quote",
         cite: "Citation",
         image: "assets/placeholder.jpg",
@@ -96,7 +96,7 @@ KL.Pullquote = (function() {
         credit: ""
     };
 
-    this.getURLVars = function(string) {
+    getURLVars = function(string) {
       var urlVars = {},
           str = string.toString();
 
@@ -116,38 +116,37 @@ KL.Pullquote = (function() {
     }
 
     // LOAD EXAMPLE QUOTES
-    this.load_quotes = function() {
-        this.vars = this.getURLVars(window.location.href);
-        _.assign(this.data, vars);
+    load_quotes = function() {
+        vars = getURLVars(window.location.href);
+        _.assign(data, vars);
 
         // LAYOUT
-        this.el.container.innerHTML = "";
-        this.el.container_content = create('div', 'editor-content', this.el.container);
+        el.container.innerHTML = "";
+        el.container_content = create('div', 'editor-content', el.container);
 
         // Create Quotes
-        this.createComposition(this.data, false, true);
-        this.createComposition(this.data, "left", true);
-        this.createComposition(this.data, "right", true);
-        this.createComposition(this.data, false, false);
+        createComposition(data, false, true);
+        createComposition(data, "left", true);
+        createComposition(data, "right", true);
+        createComposition(data, false, false);
     };
 
-    this.createComposition = function(d, anchor, use_image) {
+    createComposition = function(d, anchor, use_image) {
         var composition = new KL.QuoteComposition(d, {anchor:anchor, use_image:use_image});
-        this.el.container_content.appendChild(composition._el.container);
-        this.quote_compositions.push(composition);
+        el.container_content.appendChild(composition._el.container);
+        quote_compositions.push(composition);
     };
 
     /*	EVENTS
     ================================================== */
     window.onresize = function(event) {
-
-        this.options.width = window.innerWidth;
-        this.options.height = window.innerHeight;
+        options.width = window.innerWidth;
+        options.height = window.innerHeight;
     }
 
     /*	INIT
     ================================================== */
-    this.load_quotes();
+    load_quotes();
 
 
 })();
