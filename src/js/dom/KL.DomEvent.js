@@ -4,12 +4,10 @@
 ================================================== */
 // TODO stamp
 
-KL.Util = require("core/KL.Util.js");
-
 module.exports = {
     /* inpired by John Resig, Dean Edwards and YUI addEvent implementations */
     addListener: function (/*HTMLElement*/ obj, /*String*/ type, /*Function*/ fn, /*Object*/ context) {
-        var id = KL.Util.stamp(fn),
+        var id = KL.Helper.stamp(fn),
         key = '_vco_' + type + id;
 
         if (obj[key]) {
@@ -47,7 +45,7 @@ module.exports = {
     },
 
     removeListener: function (/*HTMLElement*/ obj, /*String*/ type, /*Function*/ fn) {
-        var id = KL.Util.stamp(fn),
+        var id = KL.Helper.stamp(fn),
             key = '_vco_' + type + id,
             handler = obj[key];
 
