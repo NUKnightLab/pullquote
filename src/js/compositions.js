@@ -125,8 +125,8 @@ KL.Pullquote = (function() {
     };
 
     createComposition = function(d, anchor, use_image) {
-        var composition = new KL.QuoteComposition(d, {anchor:anchor, use_image:use_image});
-        el.container_content.appendChild(composition._el.container);
+        var composition = new KL.QuoteComposition().init(d, {anchor:anchor, use_image:use_image});
+        el.container_content.appendChild(composition.container);
         quote_compositions.push(composition);
     };
 
