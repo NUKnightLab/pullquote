@@ -77,17 +77,7 @@ KL.Pullquote = (function() {
     quotes = [],
 
     // Quote Compositions
-    quote_compositions = [],
-
-    // DATA
-    data = {
-        quote: "Quote",
-        cite: "Citation",
-        image: "assets/placeholder.jpg",
-        headline: "Headline",
-        anchor:false,
-        credit: ""
-    };
+    quote_compositions = [];
 
     getURLVars = function(string) {
       var urlVars = {},
@@ -110,18 +100,17 @@ KL.Pullquote = (function() {
 
     // LOAD EXAMPLE QUOTES
     load_quotes = function() {
-        vars = getURLVars(window.location.href);
-        _.assign(data, vars);
+        urlVars = getURLVars(window.location.href);
 
         // LAYOUT
         el.container.innerHTML = "";
         el.container_content = KL.Helper.create('div', 'editor-content', el.container);
 
         // Create Quotes
-        createComposition(data, false, true);
-        createComposition(data, "left", true);
-        createComposition(data, "right", true);
-        createComposition(data, false, false);
+        createComposition(urlVars, false, true);
+        createComposition(urlVars, "left", true);
+        createComposition(urlVars, "right", true);
+        createComposition(urlVars, false, false);
     };
 
     createComposition = function(d, anchor, use_image) {
