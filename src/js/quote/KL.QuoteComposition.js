@@ -162,7 +162,8 @@ module.exports = KL.Class.extend({
             quote: q
         }
 
-        quote_detail.quote = quote_detail.quote.replace(/%20| /g, ' '); 
+        quote_detail.quote = quote_detail.quote.replace(/%20| /g, ' ').replace(/%22/g, ' "'); 
+
 
         if (!this.options.anchor) {
             if (q.length < 125) {
