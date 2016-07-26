@@ -4,24 +4,11 @@
 KL.Class = require("core/KL.Class");
 
 module.exports = KL.Class.extend({
+    includes: [KL.Events, KL.DomMixins, KL.Helper]
+})
 
-    includes: [KL.Events, KL.DomMixins],
-    _el: {},
-
-    create: function(tagName, className, container) {
-        var el = document.createElement(tagName);
-        el.className = className;
-        if (container) {
-            container.appendChild(el);
-        }
-        return el;
-    },
-
-    /*	Constructor
-    ================================================== */
-    initialize: function(data, options, add_to_container) {
-        // DOM ELEMENTS
-        this._el = {
+KL.QuoteComposition = function() {
+    var _el = {
             container: {},
             background: {},
             composition_container: {},
@@ -33,73 +20,77 @@ module.exports = KL.Class.extend({
             button_group: {},
             button_tweet: {},
             button_download: {}
-        };
+        },
 
         // Data
-        this.data = {
+        data = {
             quote: "Quote goes here, gonna make it longer to see",
             cite: "Citation",
             image: "Description",
             headline: "Headline",
             credit: "",
             download: ""
-        };
+        },
 
         //Options
-        this.options = {
+        options = {
             editable: true,
             anchor: false,
             classname: "",
             base_classname: "kl-quotecomposition",
             use_image: true,
             download_ready: false
-        };
+        },
 
-        this.animator = null;
+        animator = null;
 
+    /*	Constructor
+    ================================================== */
+    init = function(dat, opts, add_to_container) {
         // Merge Data and Options
-        KL.Util.mergeData(this.options, options);
-        KL.Util.mergeData(this.data, data);
+        _.assign(options, opts);
+        _.assign(data, dat);
 
-        this._el.container = create("div", this.options.base_classname);
+        _el.container = KL.Helper.create("div", options.base_classname);
 
-        this._updateClassName();
+        _updateClassName();
 
-        this._initLayout();
-        this._initEvents();
+        _initLayout();
+        _initEvents();
 
         if (add_to_container) {
-            add_to_container.appendChild(this._el.container);
+            add_to_container.appendChild(_el.container);
         };
 
+        return _el;
     },
 
-    update: function() {
+    update = function() {
         this._render();
     },
 
     /*	Events
     ================================================== */
-    _onMouseClick: function() {
+    _onMouseClick = function() {
         return this;
     },
 
-    _onContentEdit: function() {
-        this.data.quote = this._el.blockquote_p.innerHTML;
-        var quote_detail = this._determineTextSize(this.data.quote);
-        this._el.blockquote.className = quote_detail.sizeclass;
+    _onContentEdit = function() {
+        data.quote = _el.blockquote_p.innerHTML;
+        var quote_detail = _determineTextSize(data.quote);
+        _el.blockquote.className = quote_detail.sizeclass;
     },
 
-    _onDownload: function(e) {
-        if (this.options.download_ready) {
-            this._el.button_download.click();
+    _onDownload = function(e) {
+        if (options.download_ready) {
+            _el.button_download.click();
 
         } else {
-            this._getImage(e);
+            _getImage(e);
         }
     },
 
-    _getImage:function(e) {
+    _getImage = function(e) {
         // width 1010
         // height 566
         var _self = this,
@@ -108,12 +99,12 @@ module.exports = KL.Class.extend({
             url_vars = "?",
             api_url = "";
 
-            url_vars += "anchor=" + this.options.anchor;
-            url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
-            url_vars += "&cite=" + this._el.citation.innerHTML;
-            url_vars += "&image=" + this.data.image;
-            url_vars += "&credit=" + this.data.credit;
-            url_vars += "&use_image=" + this.options.use_image;
+            url_vars += "anchor=" + options.anchor;
+            url_vars += "&quote=" + _el.blockquote_p.innerHTML;
+            url_vars += "&cite=" + _el.citation.innerHTML;
+            url_vars += "&image=" + data.image;
+            url_vars += "&credit=" + data.credit;
+            url_vars += "&use_image=" + options.use_image;
 
         if (!window.location.origin) {
             window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
@@ -130,7 +121,7 @@ module.exports = KL.Class.extend({
         });
     },
 
-    _makeDownload: function(e) {
+    _makeDownload = function(e) {
         // CANVAS DOWNLOAD
         // Holding onto this until we get PhantomJS sorted out.
         // var _self = this;
@@ -156,7 +147,7 @@ module.exports = KL.Class.extend({
 
     /*	Private Methods
     ================================================== */
-    _determineTextSize: function(q) {
+    _determineTextSize = function(q) {
         var quote_detail = {
             sizeclass: "",
             quote: q
@@ -164,7 +155,7 @@ module.exports = KL.Class.extend({
 
         quote_detail.quote = quote_detail.quote.replace(/%20| /g, ' '); 
 
-        if (!this.options.anchor) {
+        if (!options.anchor) {
             if (q.length < 125) {
                 quote_detail.sizeclass = "kl-quote-large";
             } else if (q.length < 250) {
@@ -191,63 +182,68 @@ module.exports = KL.Class.extend({
         return quote_detail;
     },
 
-    _render: function() {
-        var quote_detail = this._determineTextSize(this.data.quote);
-        this._el.blockquote.className = quote_detail.sizeclass;
-        this._el.blockquote_p.innerHTML = quote_detail.quote;
+    _render = function() {
+        var quote_detail = _determineTextSize(data.quote);
+        _el.blockquote.className = quote_detail.sizeclass;
+        _el.blockquote_p.innerHTML = quote_detail.quote;
 
-        this._el.citation.innerHTML = this.data.cite.replace(/%20| /g, ' ');
-        if (this.options.use_image) {
-            this._el.image.style.backgroundImage = "url('" + this.data.image + "')";
+        _el.citation.innerHTML = data.cite.replace(/%20| /g, ' ');
+        if (options.use_image) {
+            _el.image.style.backgroundImage = "url('" + data.image + "')";
         }
 
-        this._el.blockquote_p.contentEditable = this.options.editable;
-        this._el.citation.contentEditable = this.options.editable;
+        _el.blockquote_p.contentEditable = options.editable;
+        _el.citation.contentEditable = options.editable;
     },
 
-    _updateClassName: function() {
-        this.options.classname = this.options.base_classname;
+    _updateClassName = function() {
+        options.classname = options.base_classname;
 
-        if (this.options.anchor) {
-            this.options.classname += " kl-anchor-" + this.options.anchor;
+        if (options.anchor) {
+            options.classname += " kl-anchor-" + options.anchor;
         }
 
-        if (this.options.editable) {
-            this.options.classname += " kl-editable";
+        if (options.editable) {
+            options.classname += " kl-editable";
         }
 
-        this._el.container.className = this.options.classname;
+        _el.container.className = options.classname;
     },
 
-    _initLayout: function () {
+    _initLayout = function () {
 
         // Create Layout
-        this._el.composition_container 	= create("div", "kl-quotecomposition-container", this._el.container);
-        this._el.composition_text = create("div", "kl-quotecomposition-text", this._el.composition_container);
-        this._el.blockquote	= create("blockquote", "", this._el.composition_text);
-        this._el.blockquote_p = create("p", "", this._el.blockquote);
-        this._el.citation = create("cite", "", this._el.blockquote);
-        this._el.background	= create("div", "kl-quotecomposition-background", this._el.composition_container);
-        this._el.image = create("div", "kl-quotecomposition-image", this._el.composition_container);
+        _el.composition_container 	= KL.Helper.create("div", "kl-quotecomposition-container", _el.container);
+        _el.composition_text = KL.Helper.create("div", "kl-quotecomposition-text", _el.composition_container);
+        _el.blockquote	= KL.Helper.create("blockquote", "", _el.composition_text);
+        _el.blockquote_p = KL.Helper.create("p", "", _el.blockquote);
+        _el.citation = KL.Helper.create("cite", "", _el.blockquote);
+        _el.background	= KL.Helper.create("div", "kl-quotecomposition-background", _el.composition_container);
+        _el.image = KL.Helper.create("div", "kl-quotecomposition-image", _el.composition_container);
 
         // Create Buttons
-        this._el.button_group = create("div", "kl-button-group", this._el.container);
-        this._el.button_download = create("a", "kl-button kl-button-right", this._el.button_group);
+        _el.button_group = KL.Helper.create("div", "kl-button-group", _el.container);
+        _el.button_download = KL.Helper.create("a", "kl-button kl-button-right", _el.button_group);
 
-        this._el.button_download.innerHTML = "Save";
+        _el.button_download.innerHTML = "Save";
 
         // Listener for save button
-        KL.DomEvent.addListener(this._el.button_download, 'click', this._onDownload, this);
+        KL.DomEvent.addListener(_el.button_download, 'click', _onDownload, this);
 
-        this._render();
+        _render();
     },
 
-    _initEvents: function () {
-        KL.DomEvent.addListener(this._el.container, 'click', this._onMouseClick, this);
-        if (this.options.editable) {
-            KL.DomEvent.addListener(this._el.blockquote_p, 'input', this._onContentEdit, this);
+    _initEvents = function () {
+        KL.DomEvent.addListener(_el.container, 'click', _onMouseClick, this);
+        if (options.editable) {
+            KL.DomEvent.addListener(_el.blockquote_p, 'input', _onContentEdit, this);
         }
     }
 
-});
+    return {
+        init: init
+    }
+};
+
+module.exports = KL.QuoteComposition 
 
