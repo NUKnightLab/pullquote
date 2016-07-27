@@ -1,12 +1,13 @@
 /**
   Pullquote Bookmarklet
-*/ 
+*/
 function iFrame() {
 
     function init() {
         event.preventDefault();
         text = grabTextSelection();
-        url = composeURL(text, "assets/placeholder.jpg", "publication name")
+        image = grabOgImage();
+        url = composeURL(text, image, "publication name")
         bookMarklet = document.createElement('div');
         bookMarklet.className = 'bookMarklet';
         bookMarklet.innerHTML = "<button class='closeButton' onClick='bookmarklet.iFrame().closeiFrame()'></button><iframe src='" + url + "'></iframe><div class='backdrop'></div>";
@@ -21,6 +22,12 @@ function iFrame() {
       text = window.getSelection().toString();
 
       return text;
+    }
+
+    function grabOgImage() {
+      var image = document.querySelectorAll("meta[property='og:image']")[0].content;
+
+      return image;
     }
 
     function composeURL(quote, image, cite) {
