@@ -4,6 +4,7 @@
 KL.Class = function () {};
 
 module.exports = KL.Class;
+_ = require("lodash");
 
 KL.Class.extend = function (/*Object*/ props) /*-> Class*/ {
 
@@ -37,30 +38,30 @@ KL.Class.extend = function (/*Object*/ props) /*-> Class*/ {
 
     // mix static properties into the class
     if (props.statics) {
-        KL.Util.extend(NewClass, props.statics);
+        _.assign(NewClass, props.statics);
         delete props.statics;
     }
 
     // mix includes into the prototype
     if (props.includes) {
-        KL.Util.extend.apply(null, [proto].concat(props.includes));
+        _.assign.apply(null, [proto].concat(props.includes));
         delete props.includes;
     }
 
     // merge options
     if (props.options && proto.options) {
-        props.options = KL.Util.extend({}, proto.options, props.options);
+        props.options = _.assign({}, proto.options, props.options);
     }
 
     // mix given properties into the prototype
-    KL.Util.extend(proto, props);
+    _.assign(proto, props);
 
     // allow inheriting further
     NewClass.extend = KL.Class.extend;
 
     // method for adding properties to prototype
     NewClass.include = function (props) {
-        KL.Util.extend(this.prototype, props);
+        _.assign(this.prototype, props);
     };
 
     return NewClass;

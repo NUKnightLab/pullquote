@@ -24,7 +24,6 @@ KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
 ================================================== */
 
 // CORE
-KL.Util = require("core/KL.Util.js");
 KL.Browser = require("core/KL.Browser");
 
 // DOM
@@ -35,6 +34,11 @@ KL.Data = require("data/KL.Data");
 
 // QUOTE
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
+
+// Helper Function
+KL.Helper = require("helpers/KL.Helper");
+
+_ = require("lodash");
 
 /*	Trace (console.log)
     Wrapped in a function to allow a boolean switch
@@ -52,41 +56,31 @@ trace = function( msg ) {
     }
 }
 
-//extrapolating function for create div and add className
-create = function(tagName, className, container) {
-    var el = document.createElement(tagName);
-    el.className = className;
-    if (container) {
-        container.appendChild(el);
-    }
-    return el;
-}
-
 KL.Pullquote = (function() {
 
     // DOM ELEMENTS
-    this.el = {
+    var el = {
         container: document.getElementById("pullquote-container"),
         container_content: {},
-    };
+    },
 
     // OPTIONS
-    this.options = {
+    options = {
         width: window.innerWidth,
         height: window.innerHeight,
-    };
+    },
 
     // SLIDER
-    this.slider = {};
+    slider = {},
 
     // Quote Objects
-    this.quotes = [];
+    quotes = [],
 
     // Quote Compositions
-    this.quote_compositions = [];
+    quote_compositions = [],
 
     // DATA
-    this.data = {
+    data = {
         quote: "Quote",
         cite: "Citation",
         image: "assets/placeholder.jpg",
@@ -95,39 +89,49 @@ KL.Pullquote = (function() {
         credit: ""
     };
 
+    getURLVars = function(string) {
+      var urlVars = {},
+          str = string.toString();
+
+      if(string.match('&#038;') || (string.match('&amp'))) {
+        var match = string.match('&#038') || string.match('&amp');
+        str = string.replace(match, '&');
+      }
+
+      urlVars = str.split('?')[1].split('&');
+
+      for(var i=0; i<urlVars.length; i++) {
+        varObj = urlVars[i].split('=');
+        urlVars[varObj[0]] = varObj[1];
+      }
+
+      return urlVars;
+    }
+
     // LOAD EXAMPLE QUOTES
-    this.load_quotes = function() {
-        this.vars = KL.Util.getUrlVars(window.location.href);
-        KL.Util.mergeData(this.data, vars);
+    load_quotes = function() {
+        vars = getURLVars(window.location.href);
+        _.assign(data, vars);
 
         // LAYOUT
-        this.el.container.innerHTML = "";
-        this.el.container_content = create('div', 'editor-content', this.el.container);
+        el.container.innerHTML = "";
+        el.container_content = KL.Helper.create('div', 'editor-content', el.container);
 
         // Create Quotes
-        this.createComposition(this.data, false, true);
-        this.createComposition(this.data, "left", true);
-        this.createComposition(this.data, "right", true);
-        this.createComposition(this.data, false, false);
+        createComposition(data, false, true);
+        createComposition(data, "left", true);
+        createComposition(data, "right", true);
+        createComposition(data, false, false);
     };
 
-    this.createComposition = function(d, anchor, use_image) {
-        var composition = new KL.QuoteComposition(d, {anchor:anchor, use_image:use_image});
-        this.el.container_content.appendChild(composition._el.container);
-        this.quote_compositions.push(composition);
+    createComposition = function(d, anchor, use_image) {
+        var composition = new KL.QuoteComposition().init(d, {anchor:anchor, use_image:use_image});
+        el.container_content.appendChild(composition.container);
+        quote_compositions.push(composition);
     };
-
-    /*	EVENTS
-    ================================================== */
-    window.onresize = function(event) {
-
-        this.options.width = window.innerWidth;
-        this.options.height = window.innerHeight;
-    }
 
     /*	INIT
     ================================================== */
-    this.load_quotes();
-
+    load_quotes();
 
 })();
