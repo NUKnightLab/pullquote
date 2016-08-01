@@ -8,7 +8,8 @@ module.exports = KL.Class.extend({
 })
 
 KL.QuoteComposition = function() {
-    var _el = {
+    var data, options,
+        _el = {
             container: {},
             background: {},
             composition_container: {},
@@ -22,34 +23,37 @@ KL.QuoteComposition = function() {
             button_download: {}
         },
 
-        // Data
-        data = {
-            quote: "Quote goes here, gonna make it longer to see",
-            cite: "Citation",
-            image: "Description",
-            headline: "Headline",
-            credit: "",
-            download: ""
-        },
+        QUOTE = "Insert Quote Here",
+        CITE = "Insert Citation Here",
+        HEADLINE = "Insert Headline Here",
+        IMAGE = "assets/placeholder.jpg",
 
-        //Options
-        options = {
-            editable: true,
-            anchor: false,
-            classname: "",
-            base_classname: "kl-quotecomposition",
-            use_image: true,
-            download_ready: false
-        },
+        ANCHOR = false,
+        USE_IMAGE = true,
 
         animator = null;
 
     /*	Constructor
     ================================================== */
-    init = function(dat, opts, add_to_container) {
+    init = function(datum, opts, add_to_container) {
         // Merge Data and Options
-        _.assign(options, opts);
-        _.assign(data, dat);
+        options = {
+            editable: true,
+            anchor: opts.anchor || ANCHOR,
+            classname: "",
+            base_classname: "kl-quotecomposition",
+            use_image: opts.use_image || USE_IMAGE,
+            download_ready: false
+        }
+
+        data = {
+            quote: datum.quote || QUOTE,
+            cite: datum.cite || CITE,
+            image: datum.image || IMAGE,
+            headline: datum.headline || HEADLINE,
+            credit: "",
+            download: ""
+        }
 
         _el.container = KL.Helper.create("div", options.base_classname);
 
@@ -119,30 +123,6 @@ KL.QuoteComposition = function() {
             _self.options.download_ready = true;
             _self._onDownload();
         });
-    },
-
-    _makeDownload = function(e) {
-        // CANVAS DOWNLOAD
-        // Holding onto this until we get PhantomJS sorted out.
-        // var _self = this;
-        // this._el.composition_container.style.transformOrigin = "left top";
-        // this._el.composition_container.style.transform = "scale(2)";
-
-        // html2canvas(this._el.composition_container, {
-        // 	useCORS:"true",
-        // 	letterRendering:"true",
-        // 	logging:true,
-        // 	width:1010,
-        // 	height:566,
-        // 	onrendered: function(canvas) {
-        // 		var dataURL = canvas.toDataURL('image/png');
-        // 		_self._el.button_download.href=dataURL;
-        // 		_self._el.button_download.download = "pullquote.png";
-        // 		_self.options.download_rendered = true;
-        // 		_self._onDownload();
-        // 		_self._el.composition_container.style.transform="scale(1)";
-        // 	}
-        // });
     },
 
     /*	Private Methods
