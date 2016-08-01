@@ -23,11 +23,10 @@ KL.QuoteComposition = function() {
             button_download: {}
         },
 
-        QUOTE = "Quote goes here, gonna make it longer to see",
-        CITE = "Citation",
-        IMAGE = "Description",
-        HEADLINE = "Headline",
-        IMAGE="assets/placeholder.jpg",
+        QUOTE = "Insert Quote Here",
+        CITE = "Insert Citation Here",
+        HEADLINE = "Insert Headline Here",
+        IMAGE = "assets/placeholder.jpg",
 
         ANCHOR = false,
         USE_IMAGE = true,
@@ -124,30 +123,6 @@ KL.QuoteComposition = function() {
             _self.options.download_ready = true;
             _self._onDownload();
         });
-    },
-
-    _makeDownload = function(e) {
-        // CANVAS DOWNLOAD
-        // Holding onto this until we get PhantomJS sorted out.
-        // var _self = this;
-        // this._el.composition_container.style.transformOrigin = "left top";
-        // this._el.composition_container.style.transform = "scale(2)";
-
-        // html2canvas(this._el.composition_container, {
-        // 	useCORS:"true",
-        // 	letterRendering:"true",
-        // 	logging:true,
-        // 	width:1010,
-        // 	height:566,
-        // 	onrendered: function(canvas) {
-        // 		var dataURL = canvas.toDataURL('image/png');
-        // 		_self._el.button_download.href=dataURL;
-        // 		_self._el.button_download.download = "pullquote.png";
-        // 		_self.options.download_rendered = true;
-        // 		_self._onDownload();
-        // 		_self._el.composition_container.style.transform="scale(1)";
-        // 	}
-        // });
     },
 
     /*	Private Methods
