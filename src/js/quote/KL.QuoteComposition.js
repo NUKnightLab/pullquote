@@ -133,7 +133,7 @@ KL.QuoteComposition = function() {
             quote: q
         }
 
-        quote_detail.quote = quote_detail.quote.replace(/%20| /g, ' ').replace(/%22/g, ' "'); 
+        quote_detail.quote = decodeURIComponent(quote_detail.quote);
 
 
         if (!options.anchor) {
