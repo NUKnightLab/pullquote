@@ -35,14 +35,19 @@ KL.QuoteComposition = function() {
 
     /*	Constructor
     ================================================== */
-    init = function(datum, opts, add_to_container) {
+    createComposition = function(datum, anchor, use_image) {
+        createContent(datum, anchor, use_image);
+        return createLayout();
+    }
+
+    createContent = function(datum, anchor, use_image) {
         // Merge Data and Options
         options = {
             editable: true,
-            anchor: opts.anchor || ANCHOR,
+            anchor: anchor || ANCHOR,
             classname: "",
             base_classname: "kl-quotecomposition",
-            use_image: opts.use_image || USE_IMAGE,
+            use_image: use_image || USE_IMAGE,
             download_ready: false
         }
 
@@ -55,16 +60,16 @@ KL.QuoteComposition = function() {
             download: ""
         }
 
+        return [options, data];
+    },
+
+    createLayout = function() {
         _el.container = KL.Helper.create("div", options.base_classname);
 
         _updateClassName();
 
         _initLayout();
         _initEvents();
-
-        if (add_to_container) {
-            add_to_container.appendChild(_el.container);
-        };
 
         return _el;
     },
@@ -222,7 +227,7 @@ KL.QuoteComposition = function() {
     }
 
     return {
-        init: init
+        createComposition: createComposition
     }
 };
 
