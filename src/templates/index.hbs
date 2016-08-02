@@ -25,9 +25,11 @@
         style.rel = 'stylesheet';
         style.href = 'http://localhost:8080/css/base.css';
         document.head.appendChild(style);
-    }
 
-    importScript('http://localhost:8080/js/bookmarklet.js');
+        importScript('http://localhost:8080/js/bookmarklet.js');
+
+        bookmarklet.iFrame().init();
+    }
 
     })();"
 
