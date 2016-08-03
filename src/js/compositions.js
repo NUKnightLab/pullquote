@@ -27,6 +27,12 @@ KL.Pullquote = (function() {
         },
         quote_compositions = [];
 
+    /**
+     * _getURLVars: Parses a given url string and grabs the variables passed into the url
+     *
+     * @param string urlString
+     * @returns object urlVars
+     */
     _getURLVars = function(string) {
       var urlVars = {},
           str = string.toString();
@@ -47,22 +53,15 @@ KL.Pullquote = (function() {
       return urlVars;
     }
 
-    // LOAD EXAMPLE QUOTES
-    _load_quotes = function() {
-        urlVars = _getURLVars(window.location.href);
-
-        // LAYOUT
-        el.container.innerHTML = "";
-        el.container_content = KL.Helper.create('div', 'editor-content', el.container);
-
-        // Create Quotes
-        createComposition(urlVars, false, true);
-        createComposition(urlVars, "left", true);
-        createComposition(urlVars, "right", true);
-        createComposition(urlVars, false, false);
-    };
-
-    createComposition = function(urlData, anchor, use_image) {
+    /**
+     * createComposition: composes the layout for image and quote and appends it to the container element 
+     *
+     * @param String urlData
+     * @param Boolean anchor
+     * @param Boolean use_image
+     * @returns {undefined}
+     */
+    _createComposition = function(urlData, anchor, use_image) {
         //grab quotes
         var composition = KL.QuoteComposition().createComposition(urlVars, anchor, use_image);
 
@@ -70,8 +69,23 @@ KL.Pullquote = (function() {
         quote_compositions.push(composition);
     };
 
-    /*	INIT
-    ================================================== */
-    _load_quotes();
+    /**
+     * _init: creates the composition for pullquote
+     *
+     * @returns {undefined}
+     */
+    _init = function() {
+        urlVars = _getURLVars(window.location.href);
+
+        // LAYOUT
+        el.container.innerHTML = "";
+        el.container_content = KL.Helper.create('div', 'editor-content', el.container);
+
+        // Create Quotes
+        _createComposition(urlVars, false, true);
+        _createComposition(urlVars, "left", true);
+        _createComposition(urlVars, "right", true);
+        _createComposition(urlVars, false, false);
+    }();
 
 })();
