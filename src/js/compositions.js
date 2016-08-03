@@ -5,11 +5,6 @@
 // Knight Lab Namespace
 KL = {};
 
-/*	Required Files
-    Webpack
-    https://webpack.github.io/
-================================================== */
-
 KL.Browser = require("core/KL.Browser");
 KL.DomEvent = require("dom/KL.DomEvent");
 KL.Data = require("data/KL.Data");
@@ -20,7 +15,6 @@ _ = require("lib/lodash.js");
 
 KL.Pullquote = (function() {
 
-    // DOM ELEMENTS
     var el = {
         container: document.getElementById("pullquote-container"),
         container_content: {},

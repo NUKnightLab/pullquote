@@ -33,15 +33,28 @@ KL.QuoteComposition = function() {
 
         animator = null;
 
-    /*	Constructor
-    ================================================== */
+    /**
+     * createComposition: overarching function that creates content and layout options and lays it out
+     *
+     * @param datum
+     * @param anchor
+     * @param use_image
+     * @returns {undefined}
+     */
     createComposition = function(datum, anchor, use_image) {
         createContent(datum, anchor, use_image);
         return createLayout();
     }
 
+    /**
+     * createContent: grabbing content data and layout options for pullquote composition; using default if none given 
+     *
+     * @param Object datum
+     * @param Boolean anchor
+     * @param Boolean use_image
+     * @returns {undefined}
+     */
     createContent = function(datum, anchor, use_image) {
-        // Merge Data and Options
         options = {
             editable: true,
             anchor: anchor || ANCHOR,
@@ -59,10 +72,13 @@ KL.QuoteComposition = function() {
             credit: "",
             download: ""
         }
-
-        return [options, data];
     },
 
+    /**
+     * createLayout: Composes the quote and image in a layout
+     *
+     * @returns {undefined}
+     */
     createLayout = function() {
         _el.container = KL.Helper.create("div", options.base_classname);
 
@@ -72,10 +88,6 @@ KL.QuoteComposition = function() {
         _initEvents();
 
         return _el;
-    },
-
-    update = function() {
-        this._render();
     },
 
     /*	Events
