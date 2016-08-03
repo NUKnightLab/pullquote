@@ -4,7 +4,7 @@
 KL.Class = function () {};
 
 module.exports = KL.Class;
-_ = require("lodash");
+_ = require("../lib/lodash.js");
 
 KL.Class.extend = function (/*Object*/ props) /*-> Class*/ {
 

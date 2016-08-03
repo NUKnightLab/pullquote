@@ -1,4 +1,4 @@
-var _ = require('lodash'),
+var _ = require("../src/js/lib/lodash.js"),
     fm = require('front-matter'),
     fs = require('fs-extra'),
     path = require('path'),
@@ -25,7 +25,7 @@ function renderPage(template, layout) {
 function build() {
 
   var globby = require('globby'),
-      _ = require('lodash');
+      _ = require('../src/js/lib/lodash.js');
 
   var hbsTemplates = globby.sync('src/templates/*.hbs');
 
