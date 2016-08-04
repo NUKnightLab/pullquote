@@ -38,7 +38,7 @@ KL.QuoteComposition = require("quote/KL.QuoteComposition");
 // Helper Function
 KL.Helper = require("helpers/KL.Helper");
 
-_ = require("lodash");
+_ = require("lib/lodash.js");
 
 /*	Trace (console.log)
     Wrapped in a function to allow a boolean switch
