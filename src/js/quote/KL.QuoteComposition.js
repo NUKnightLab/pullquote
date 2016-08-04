@@ -34,13 +34,25 @@ KL.QuoteComposition = function() {
         animator = null;
 
     /**
+     * createPullquoteComposition: function composing layout customization and composition
+     *
+     * @returns {undefined}
+     */
+    createPullquoteComposition = function(data, anchor, use_image) {
+        var options = createPullquoteLayoutCustomization(anchor, use_image),
+            composition = createLayout(data, options);
+
+        return composition;
+    }
+
+    /**
      * createPullQuoteContent: creates content for all pullquote items; if none given, it uses defaults
      *
      * @param Object datum (from url params)
      * @returns Object data (constructed for composition)
      */
     createPullquoteContent = function(datum) {
-        data = {
+        dat = {
             quote: datum.quote || QUOTE,
             cite: datum.cite || CITE,
             image: datum.image || IMAGE,
@@ -49,7 +61,8 @@ KL.QuoteComposition = function() {
             download: ""
         }
 
-        return data;
+        this.data = dat;
+        return this.data;
     }
     /**
      * createPullQuoteLayoutCustomizations: creates customizations for each individual pullquote item; if none given, it uses defaults 
@@ -58,8 +71,8 @@ KL.QuoteComposition = function() {
      * @param Boolean use_image
      * @returns Object options
      */
-    createPullquoteLayoutCustomizations = function(anchor, use_image) {
-        options = {
+    createPullquoteLayoutCustomization = function(anchor, use_image) {
+        opts = {
             editable: true,
             anchor: anchor || ANCHOR,
             classname: "",
@@ -67,8 +80,9 @@ KL.QuoteComposition = function() {
             use_image: use_image || USE_IMAGE,
             download_ready: false
         }
-
-        return options;
+        
+        this.options = opts;
+        return this.options;
     },
 
     /**
@@ -89,13 +103,14 @@ KL.QuoteComposition = function() {
 
     /*	Events
     ================================================== */
-    _onMouseClick = function() {
-        return this;
-    },
-
+    /**
+     * _onContentEdit: updates the text size of the quote as you type so it fits in the pullquote container
+     *
+     * @returns {undefined}
+     */
     _onContentEdit = function() {
-        data.quote = _el.blockquote_p.innerHTML;
-        var quote_detail = _determineTextSize(data.quote);
+        updatedQuote = _el.blockquote_p.innerHTML;
+        var quote_detail = _determineTextSize(updatedQuote);
         _el.blockquote.className = quote_detail.sizeclass;
     },
 
@@ -139,8 +154,6 @@ KL.QuoteComposition = function() {
         });
     },
 
-    /*	Private Methods
-    ================================================== */
     _determineTextSize = function(q, options) {
         var quote_detail = {
             sizeclass: "",
@@ -229,7 +242,6 @@ KL.QuoteComposition = function() {
     },
 
     _initEvents = function (editable) {
-        KL.DomEvent.addListener(_el.container, 'click', _onMouseClick, this);
         if (editable) {
             KL.DomEvent.addListener(_el.blockquote_p, 'input', _onContentEdit, this);
         }
@@ -237,8 +249,9 @@ KL.QuoteComposition = function() {
 
     return {
         createPullquoteContent: createPullquoteContent,
-        createPullquoteLayoutCustomizations: createPullquoteLayoutCustomizations,
-        createLayout: createLayout
+        createPullquoteComposition: createPullquoteComposition,
+        data: data,
+        options: options
     }
 };
 

@@ -57,8 +57,7 @@ KL.Pullquote = (function() {
      */
     _createComposition = function(data, anchor, use_image) {
         //grab quotes
-        var options = KL.QuoteComposition().createPullquoteLayoutCustomizations(anchor, use_image),
-            composition = KL.QuoteComposition().createLayout(data, options);
+        var composition = KL.QuoteComposition().createPullquoteComposition(data, anchor, use_image);
 
         el.container_content.appendChild(composition.container);
         quote_compositions.push(composition);
