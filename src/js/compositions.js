@@ -19,7 +19,15 @@ KL.Pullquote = (function() {
         container: document.getElementById("pullquote-container"),
         container_content: {},
         },
-        quote_compositions = [];
+        quote_compositions = [],
+
+        QUOTE = "Insert Quote Here",
+        CITE = "Insert Citation Here",
+        HEADLINE = "Insert Headline Here",
+        IMAGE = "assets/placeholder.jpg",
+
+        ANCHOR = false,
+        USE_IMAGE = true;
 
     /**
      * _getURLVars: Parses a given url string and grabs the variables passed into the url
@@ -48,6 +56,46 @@ KL.Pullquote = (function() {
     }
 
     /**
+     * createPullQuoteContent: creates content for all pullquote items; if none given, it uses defaults
+     *
+     * @param Object datum (from url params)
+     * @returns Object data (constructed for composition)
+     */
+    createPullquoteContent = function(datum) {
+        data = {
+            quote: datum.quote || QUOTE,
+            cite: datum.cite || CITE,
+            image: datum.image || IMAGE,
+            headline: datum.headline || HEADLINE,
+            credit: "",
+            download: ""
+        }
+
+        return data;
+    }
+
+    /**
+     * createPullQuoteLayoutCustomizations: creates customizations for each individual pullquote item; if none given, it uses defaults 
+     *
+     * @param Boolean anchor
+     * @param Boolean use_image
+     * @returns Object options
+     */
+    createPullquoteLayoutCustomization = function(anchor, use_image) {
+        options = {
+            editable: true,
+            anchor: anchor || ANCHOR,
+            classname: "",
+            base_classname: "kl-quotecomposition",
+            use_image: use_image || USE_IMAGE,
+            download_ready: false
+        }
+
+        return options;
+    },
+
+
+    /**
      * createComposition: composes the layout for image and quote and appends it to the container element 
      *
      * @param String urlData
@@ -56,8 +104,8 @@ KL.Pullquote = (function() {
      * @returns {undefined}
      */
     _createComposition = function(data, anchor, use_image) {
-        //grab quotes
-        var composition = KL.QuoteComposition().createPullquoteComposition(data, anchor, use_image);
+        var layoutOptions = createPullquoteLayoutCustomization(anchor, use_image);
+        var composition = KL.QuoteComposition().createPullquoteComposition(data, layoutOptions);
 
         el.container_content.appendChild(composition.container);
         quote_compositions.push(composition);
@@ -76,7 +124,7 @@ KL.Pullquote = (function() {
         el.container_content = KL.Helper.create('div', 'editor-content', el.container);
 
         // Create Content
-        urlVars = KL.QuoteComposition().createPullquoteContent(urlVars);
+        urlVars = createPullquoteContent(urlVars);
 
         // Create Pullquote Composition
         _createComposition(urlVars, false, true);
