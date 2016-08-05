@@ -30,9 +30,11 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     createPullquoteComposition = function(data, options) {
-        this.data = data;
-        this.options = options;
-        var that = this
+        var that = this;
+
+        that.data = data;
+        that.options = options;
+
         _el.container = KL.Helper.create("div", options.base_classname);
 
         _updateClassName(options);
@@ -43,8 +45,6 @@ KL.QuoteComposition = function() {
         return _el;
     },
 
-    /*	Events
-    ================================================== */
     /**
      * _onContentEdit: updates the text size of the quote as you type so it fits in the pullquote container
      *
@@ -65,6 +65,12 @@ KL.QuoteComposition = function() {
         }
     },
 
+    /**
+     * _getImage: gets Image using phantom
+     *
+     * @param e
+     * @returns {undefined}
+     */
     _getImage = function(e) {
         // width 1010
         // height 566
@@ -96,6 +102,12 @@ KL.QuoteComposition = function() {
         });
     },
 
+    /**
+     * _determineTextSize: checks the anchor param in options and sets the text size
+     *
+     * @param Object that = undefined(default)
+     * @returns {undefined}
+     */
     _determineTextSize = function(that = undefined) {
         that = that;
         if (that !== undefined) {data = that.data; options = that.options}
@@ -134,6 +146,12 @@ KL.QuoteComposition = function() {
         return quote_detail;
     },
 
+    /**
+     * _render: constructs each pullquote item
+     *
+     * @param Object that
+     * @returns {undefined}
+     */
     _render = function(that) {
         var quote_detail = _determineTextSize(that);
         _el.blockquote.className = quote_detail.sizeclass;
@@ -148,6 +166,12 @@ KL.QuoteComposition = function() {
         _el.citation.contentEditable = that.options.editable;
     },
 
+    /**
+     * _updateClassName: updates the classname of each pullquote item based on it's anchor placement
+     *
+     * @param Object options
+     * @returns {undefined}
+     */
     _updateClassName = function(options) {
         options.classname = options.base_classname;
 
@@ -162,6 +186,12 @@ KL.QuoteComposition = function() {
         _el.container.className = options.classname;
     },
 
+    /**
+     * _initLayout: creates the structure for the pullquote composition
+     *
+     * @param Object that
+     * @returns {undefined}
+     */
     _initLayout = function (that) {
         // Create Layout
         _el.composition_container 	= KL.Helper.create("div", "kl-quotecomposition-container", _el.container);
@@ -184,6 +214,12 @@ KL.QuoteComposition = function() {
         _render(that);
     },
 
+    /**
+     * _initEvents: Add events to the pullquote input element
+     *
+     * @param Boolean editable
+     * @returns {undefined}
+     */
     _initEvents = function (editable) {
         if (editable) {
             KL.DomEvent.addListener(_el.blockquote_p, 'input', _onContentEdit, this);
@@ -191,10 +227,7 @@ KL.QuoteComposition = function() {
     }
 
     return {
-        createPullquoteContent: createPullquoteContent,
-        createPullquoteComposition: createPullquoteComposition,
-        data: data,
-        options: options
+        createPullquoteComposition: createPullquoteComposition
     }
 };
 
