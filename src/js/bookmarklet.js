@@ -9,8 +9,9 @@ function iFrame() {
         cite = grabCitation();
         url = composeURL(text, image, cite)
         bookMarklet = document.createElement('div');
-        bookMarklet.className = 'bookMarklet';
-        bookMarklet.innerHTML = "<button class='closeButton' onClick='bookmarklet.iFrame().closeiFrame()'></button><iframe class='pq--iframe' src='" + url + "'></iframe><div class='backdrop'></div>";
+        bookMarklet.id = 'bookMarklet';
+
+        bookMarklet.setAttribute('data-template', 'pq-iframe-template')
 
         document.body.appendChild(bookMarklet);
         //preventPageScroll();
