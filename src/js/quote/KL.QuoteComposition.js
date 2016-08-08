@@ -22,66 +22,37 @@ KL.QuoteComposition = function() {
             button_tweet: {},
             button_download: {}
         },
-
-        QUOTE = "Insert Quote Here",
-        CITE = "Insert Citation Here",
-        HEADLINE = "Insert Headline Here",
-        IMAGE = "assets/placeholder.jpg",
-
-        ANCHOR = false,
-        USE_IMAGE = true,
-
         animator = null;
 
-    /*	Constructor
-    ================================================== */
-    init = function(datum, opts, add_to_container) {
-        // Merge Data and Options
-        options = {
-            editable: true,
-            anchor: opts.anchor || ANCHOR,
-            classname: "",
-            base_classname: "kl-quotecomposition",
-            use_image: opts.use_image || USE_IMAGE,
-            download_ready: false
-        }
+    /**
+     * createPullquoteComposition: function composing layout customization and composition
+     *
+     * @returns {undefined}
+     */
+    createPullquoteComposition = function(data, options) {
+        var that = this;
 
-        data = {
-            quote: datum.quote || QUOTE,
-            cite: datum.cite || CITE,
-            image: datum.image || IMAGE,
-            headline: datum.headline || HEADLINE,
-            credit: "",
-            download: ""
-        }
+        that.data = data;
+        that.options = options;
 
         _el.container = KL.Helper.create("div", options.base_classname);
 
-        _updateClassName();
+        _updateClassName(options);
 
-        _initLayout();
-        _initEvents();
-
-        if (add_to_container) {
-            add_to_container.appendChild(_el.container);
-        };
+        _initLayout(that);
+        _initEvents(options.editable);
 
         return _el;
     },
 
-    update = function() {
-        this._render();
-    },
-
-    /*	Events
-    ================================================== */
-    _onMouseClick = function() {
-        return this;
-    },
-
+    /**
+     * _onContentEdit: updates the text size of the quote as you type so it fits in the pullquote container
+     *
+     * @returns {undefined}
+     */
     _onContentEdit = function() {
         data.quote = _el.blockquote_p.innerHTML;
-        var quote_detail = _determineTextSize(data.quote);
+        var quote_detail = _determineTextSize();
         _el.blockquote.className = quote_detail.sizeclass;
     },
 
@@ -94,6 +65,12 @@ KL.QuoteComposition = function() {
         }
     },
 
+    /**
+     * _getImage: gets Image using phantom
+     *
+     * @param e
+     * @returns {undefined}
+     */
     _getImage = function(e) {
         // width 1010
         // height 566
@@ -125,23 +102,29 @@ KL.QuoteComposition = function() {
         });
     },
 
-    /*	Private Methods
-    ================================================== */
-    _determineTextSize = function(q) {
+    /**
+     * _determineTextSize: checks the anchor param in options and sets the text size
+     *
+     * @param Object that = undefined(default)
+     * @returns {undefined}
+     */
+    _determineTextSize = function(that = undefined) {
+        that = that;
+        if (that !== undefined) {data = that.data; options = that.options}
         var quote_detail = {
             sizeclass: "",
-            quote: q
+            quote: data.quote
         }
 
         quote_detail.quote = decodeURIComponent(quote_detail.quote);
 
 
         if (!options.anchor) {
-            if (q.length < 125) {
+            if (data.quote.length < 125) {
                 quote_detail.sizeclass = "kl-quote-large";
-            } else if (q.length < 250) {
+            } else if (data.quote.length < 250) {
                 // Normal size, do nothing
-            } else if (q.length < 500) {
+            } else if (data.quote.length < 500) {
                 quote_detail.sizeclass = "kl-quote-small";
             } else {
                 if (KL.Browser.webkit) {
@@ -151,7 +134,7 @@ KL.QuoteComposition = function() {
                 }
             }
         } else {
-            if (q.length > 150) {
+            if (data.quote.length > 150) {
                 if (KL.Browser.webkit) {
                     quote_detail.sizeclass = "kl-quote-ellipsis";
                 } else {
@@ -163,21 +146,33 @@ KL.QuoteComposition = function() {
         return quote_detail;
     },
 
-    _render = function() {
-        var quote_detail = _determineTextSize(data.quote);
+    /**
+     * _render: constructs each pullquote item
+     *
+     * @param Object that
+     * @returns {undefined}
+     */
+    _render = function(that) {
+        var quote_detail = _determineTextSize(that);
         _el.blockquote.className = quote_detail.sizeclass;
         _el.blockquote_p.innerHTML = quote_detail.quote;
 
-        _el.citation.innerHTML = data.cite.replace(/%20| /g, ' ');
-        if (options.use_image) {
-            _el.image.style.backgroundImage = "url('" + data.image + "')";
+        _el.citation.innerHTML = that.data.cite.replace(/%20| /g, ' ');
+        if (that.options.use_image) {
+            _el.image.style.backgroundImage = "url('" + that.data.image + "')";
         }
 
-        _el.blockquote_p.contentEditable = options.editable;
-        _el.citation.contentEditable = options.editable;
+        _el.blockquote_p.contentEditable = that.options.editable;
+        _el.citation.contentEditable = that.options.editable;
     },
 
-    _updateClassName = function() {
+    /**
+     * _updateClassName: updates the classname of each pullquote item based on it's anchor placement
+     *
+     * @param Object options
+     * @returns {undefined}
+     */
+    _updateClassName = function(options) {
         options.classname = options.base_classname;
 
         if (options.anchor) {
@@ -191,8 +186,13 @@ KL.QuoteComposition = function() {
         _el.container.className = options.classname;
     },
 
-    _initLayout = function () {
-
+    /**
+     * _initLayout: creates the structure for the pullquote composition
+     *
+     * @param Object that
+     * @returns {undefined}
+     */
+    _initLayout = function (that) {
         // Create Layout
         _el.composition_container 	= KL.Helper.create("div", "kl-quotecomposition-container", _el.container);
         _el.composition_text = KL.Helper.create("div", "kl-quotecomposition-text", _el.composition_container);
@@ -211,18 +211,23 @@ KL.QuoteComposition = function() {
         // Listener for save button
         KL.DomEvent.addListener(_el.button_download, 'click', _onDownload, this);
 
-        _render();
+        _render(that);
     },
 
-    _initEvents = function () {
-        KL.DomEvent.addListener(_el.container, 'click', _onMouseClick, this);
-        if (options.editable) {
+    /**
+     * _initEvents: Add events to the pullquote input element
+     *
+     * @param Boolean editable
+     * @returns {undefined}
+     */
+    _initEvents = function (editable) {
+        if (editable) {
             KL.DomEvent.addListener(_el.blockquote_p, 'input', _onContentEdit, this);
         }
     }
 
     return {
-        init: init
+        createPullquoteComposition: createPullquoteComposition
     }
 };
 
