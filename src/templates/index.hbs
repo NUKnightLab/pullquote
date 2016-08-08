@@ -26,11 +26,10 @@
         style.href = 'http://localhost:8080/css/base.css';
         document.head.appendChild(style);
 
-        importScript('http://localhost:8080/js/bookmarklet.js');
-
-        bookmarklet.iFrame().init();
+        importScript('http://localhost:8080/js/bookmarklet.js', function() {
+            bookmarklet.iFrame().init();
+        });
     }
-
     })();"
 
     onClick="javascript:(function(){console.log('hello!')})();">Add me</a>
