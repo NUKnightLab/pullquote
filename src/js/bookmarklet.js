@@ -2,6 +2,7 @@
   Pullquote Bookmarklet
 */
 function iFrame() {
+    var Handlebars = require('handlebars');
 
     function init() {
         text = grabTextSelection();
@@ -12,6 +13,11 @@ function iFrame() {
         bookMarklet.id = 'bookMarklet';
 
         bookMarklet.setAttribute('data-template', 'pq-iframe-template')
+
+        //load template into div
+        var template = document.getElementById('pq-iframe-template').innerHTML;
+        var output = Handlebars.compile(template);
+        bookMarklet.innerHTML = output();
 
         document.body.appendChild(bookMarklet);
         //preventPageScroll();
