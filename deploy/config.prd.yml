@@ -1,0 +1,6 @@
+domains: "{{ project_name }}.knightlab.com"
+static_bucket: "media.knightlab.com"
+
+ssl:
+  ssl_certificate: "/etc/nginx/ssl/knightlab/knightlab-bundle.crt"
+  ssl_certificate_key: "/etc/nginx/ssl/knightlab/knightlab-com.key"
