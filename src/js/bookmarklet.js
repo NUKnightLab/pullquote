@@ -17,7 +17,8 @@ function iFrame() {
         //load template into div
         var template = document.getElementById('pq-iframe-template').innerHTML;
         var output = Handlebars.compile(template);
-        bookMarklet.innerHTML = output();
+        var context = {"url": url, name: "hello"}
+        bookMarklet.innerHTML = output(context);
 
         document.body.appendChild(bookMarklet);
         //preventPageScroll();

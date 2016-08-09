@@ -29,6 +29,11 @@ function build() {
 
   var hbsTemplates = globby.sync('src/templates/*.hbs');
 
+  //register partials
+  Handlebars.registerHelper('raw-helper', function(options) {
+      return options.fn();
+  });
+
   _.forEach(hbsTemplates, function(file, i) {
     var filePattern = path.dirname(file).split('src/templates/')[1],
         fileName = path.basename(file, '.hbs'),
