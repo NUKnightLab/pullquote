@@ -38,7 +38,7 @@ KL.QuoteComposition = require("quote/KL.QuoteComposition");
 // Helper Function
 KL.Helper = require("helpers/KL.Helper");
 
-_ = require("lodash");
+_ = require("lib/lodash.js");
 
 /*	Trace (console.log)
     Wrapped in a function to allow a boolean switch
@@ -88,11 +88,12 @@ KL.Pullquote = (function() {
         str = string.replace(match, '&');
       }
 
-      urlVars = str.split('?')[1].split('&');
+      urlVarArray = str.split('?')[1].split('&');
 
-      for(var i=0; i<urlVars.length; i++) {
-        varObj = urlVars[i].split('=');
-        urlVars[varObj[0]] = varObj[1];
+      for(var i = 0; i < urlVarArray.length; i++) {
+        urlKey = urlVarArray[i].split('=')[0];
+        urlVal = urlVarArray[i].replace(/([^=]*)./, '')
+        urlVars[urlKey] = urlVal;
       }
 
       return urlVars;

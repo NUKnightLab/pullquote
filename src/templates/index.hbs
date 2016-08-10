@@ -1,40 +1,63 @@
 <html>
+<head>
     <link rel="stylesheet" href="https://cdn.knightlab.com/libs/purpleline/latest/css/purpleline.min.css" type="text/css" />
     <script type="text/javascript" src="https://cdn.knightlab.com/libs/purpleline/latest/js/purpleline.min.js" ></script>
        <link rel="icon" type="image/png" href="//cdn.knightlab.com/libs/purpleline/latest/img/favicon.ico">
-<head>
 </head>
 <body>
-<div data-magellan-expedition="fixed"> <!-- Use this to make the navbar stick to the top. -->
-     <!-- Add the class "sticky" to "top-bar" to make the navbar sticky. -->
-     <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">Pullquote</a></h1>
-        </li>
-         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-      </ul>
-
-      <section class="top-bar-section">
-        <!-- Right Nav Section -->
-        <ul class="right">
-          <li><a href="http://knightlab.northwestern.edu/">Northwestern University Knight Lab</a></li>
-        </ul>
-
-        <!-- Left Nav Section -->
-        <ul class="left">
-        </ul>
-      </section>
-    </nav>
-  </div>
-  <div class="row">
-      <div class="large-12 columns">
-          <h1>This is Pullquote.</h1>
-          <p>To run the bookmarklet, drag<a href="" onClick="event.preventDefault();bookmarklet.iFrame().init()" class="buttonBookmark">this link</a>to your bookmarks bar.</p>
+  <header id="overview" class="panel">
+    <div class="row text-center">
+      <div style="max-width:160px" class="corner logo">
+        <a href="https://knightlab.com"><img src="https://cdn.knightlab.com/libs/purpleline/latest/img/logos/logo_horizontal_NOtagline_615x205_transparent_padded.png" data-pin-nopin="true"></a>
       </div>
-  </div>
-  <footer>
+        <div class="large-12 columns">
+            <h1 class="logo-mark xl">Pullquote</h1>
+            <h2 class="intro">A convenient tool to share quotes with style</h2>
+        </div>
+      </div>
+  </header>
+  <section id="demo" style="margin-bottom:50px">
+    <div class="row text-center">
+          <p>To run the bookmarklet, drag the<a href="javascript:(function(){
+              if(document.getElementById('bookmarklet')) {
+                  document.getElementById('bookmarklet').remove();
+              } else {
+                  var importScript = (function (oHead) {
+
+                    function loadError (oError) {
+                        throw new URIError('The script ' + oError.target.src + ' is not accessible.');
+                    }
+
+                    return function (sSrc, fOnload) {
+                        var oScript = document.createElement('script');
+                        oScript.type = 'text\/javascript';
+                        oScript.onerror = loadError;
+                        if (fOnload) { oScript.onload = fOnload; }
+                        oHead.appendChild(oScript);
+                        oScript.src = sSrc;
+                    }
+
+                  })(document.head || document.getElementsByTagName('head')[0]);
+
+                  var style = document.createElement('link');
+                  style.rel = 'stylesheet';
+                  style.href = 'http://localhost:8080/css/base.css';
+                  document.head.appendChild(style);
+
+                  importScript('http://localhost:8080/js/bookmarklet.js');
+
+                  bookmarklet.iFrame().init();
+              }
+
+              })();"
+
+              onClick="javascript:(function(){console.log('hello!')})();"> Pullquote </a>link to your bookmarks bar.</p>
+      </div>
+    <div style="max-width:500px;display:block;margin:auto" >
+      <img style="max-width:500px" src="assets/demo.gif" alt="gif demo of Pullquote">
+    </div>
+  </section>
+    <footer>
       <div class="about-knightlab">
         <div id="knightlab-logo-column">
           <a href="http://knightlab.northwestern.edu" target="_blank"><img src="http://knightlab.northwestern.edu/wp-content/uploads/2014/12/logo_stacked.png" class="img-responsive"></a>
