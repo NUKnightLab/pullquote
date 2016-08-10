@@ -1,5 +1,7 @@
 project_name: pullquote
 gitdeploy_version: "1.0.3"
+type: "static"
+buildkit: true
 
 static_dir: "{{ application_dir }}/dist"
 application_dir: "{{ deploy_dir }}"
