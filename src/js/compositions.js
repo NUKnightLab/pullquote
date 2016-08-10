@@ -15,10 +15,7 @@ _ = require("lib/lodash.js");
 
 KL.Pullquote = (function() {
 
-    var el = {
-        container: document.getElementById("pullquote-container"),
-        container_content: {},
-        },
+    var el = document.getElementById('pq-iframe-content-template'),
         quote_compositions = [],
 
         QUOTE = "Insert Quote Here",
@@ -85,15 +82,12 @@ KL.Pullquote = (function() {
         options = {
             editable: true,
             anchor: anchor || ANCHOR,
-            classname: "",
-            base_classname: "kl-quotecomposition",
             use_image: use_image || USE_IMAGE,
             download_ready: false
         }
 
         return options;
-    },
-
+    }, 
 
     /**
      * createComposition: composes the layout for image and quote and appends it to the container element 
@@ -104,11 +98,10 @@ KL.Pullquote = (function() {
      * @returns {undefined}
      */
     _createComposition = function(data, anchor, use_image) {
-        var layoutOptions = createPullquoteLayoutCustomization(anchor, use_image);
-        var composition = KL.QuoteComposition().createPullquoteComposition(data, layoutOptions);
-
-        el.container_content.appendChild(composition.container);
-        quote_compositions.push(composition);
+        var layoutOptions = createPullquoteLayoutCustomization(anchor, use_image),
+            composeData = _.assign(data, layoutOptions);
+        
+        KL.QuoteComposition().createPullquoteComposition(composeData);
     };
 
     /**
@@ -118,10 +111,6 @@ KL.Pullquote = (function() {
      */
     _init = function() {
         urlVars = _getURLVars(window.location.href);
-
-        // LAYOUT
-        el.container.innerHTML = "";
-        el.container_content = KL.Helper.create('div', 'editor-content', el.container);
 
         // Create Content
         urlVars = createPullquoteContent(urlVars);
