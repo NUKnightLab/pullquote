@@ -29,7 +29,7 @@ function build() {
 
   var hbsTemplates = globby.sync('src/templates/*.hbs');
 
-  //register partials
+  //register helper
   Handlebars.registerHelper('raw-helper', function(options) {
       return options.fn();
   });
