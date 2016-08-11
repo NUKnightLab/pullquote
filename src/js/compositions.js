@@ -2,84 +2,40 @@
   Pullquote
 */
 
-
 // Knight Lab Namespace
 KL = {};
 
-// Debug Mode
-KL.debug = true;
-
-
-/*	KL.Bind
-================================================== */
-KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
-    return function () {
-        return fn.apply(obj, arguments);
-    };
-};
-
-/*	Required Files
-    Webpack
-    https://webpack.github.io/
-================================================== */
-
-// CORE
 KL.Browser = require("core/KL.Browser");
-
-// DOM
 KL.DomEvent = require("dom/KL.DomEvent");
-
-// Data
 KL.Data = require("data/KL.Data");
-
-// QUOTE
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
-
-// Helper Function
 KL.Helper = require("helpers/KL.Helper");
 
 _ = require("lib/lodash.js");
 
-/*	Trace (console.log)
-    Wrapped in a function to allow a boolean switch
-    to show console log only if in debug mode.
-================================================== */
-trace = function( msg ) {
-    if (KL.debug) {
-        if (window.console) {
-            console.log(msg);
-        } else if ( typeof( jsTrace ) != 'undefined' ) {
-            jsTrace.send( msg );
-        } else {
-            //alert(msg);
-        }
-    }
-}
-
 KL.Pullquote = (function() {
 
-    // DOM ELEMENTS
     var el = {
         container: document.getElementById("pullquote-container"),
         container_content: {},
-    },
+        },
+        quote_compositions = [],
 
-    // OPTIONS
-    options = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-    },
+        QUOTE = "Insert Quote Here",
+        CITE = "Insert Citation Here",
+        HEADLINE = "Insert Headline Here",
+        IMAGE = "assets/placeholder.jpg",
 
-    // SLIDER
-    slider = {},
+        ANCHOR = false,
+        USE_IMAGE = true;
 
-    // Quote Objects
-    quotes = [],
-
-    // Quote Compositions
-    quote_compositions = [];
-
-    getURLVars = function(string) {
+    /**
+     * _getURLVars: Parses a given url string and grabs the variables passed into the url
+     *
+     * @param string urlString
+     * @returns object urlVars
+     */
+    _getURLVars = function(string) {
       var urlVars = {},
           str = string.toString();
 
@@ -99,29 +55,82 @@ KL.Pullquote = (function() {
       return urlVars;
     }
 
-    // LOAD EXAMPLE QUOTES
-    load_quotes = function() {
-        urlVars = getURLVars(window.location.href);
+    /**
+     * createPullQuoteContent: creates content for all pullquote items; if none given, it uses defaults
+     *
+     * @param Object datum (from url params)
+     * @returns Object data (constructed for composition)
+     */
+    createPullquoteContent = function(datum) {
+        data = {
+            quote: datum.quote || QUOTE,
+            cite: datum.cite || CITE,
+            image: datum.image || IMAGE,
+            headline: datum.headline || HEADLINE,
+            credit: "",
+            download: ""
+        }
+
+        return data;
+    }
+
+    /**
+     * createPullQuoteLayoutCustomizations: creates customizations for each individual pullquote item; if none given, it uses defaults 
+     *
+     * @param Boolean anchor
+     * @param Boolean use_image
+     * @returns Object options
+     */
+    createPullquoteLayoutCustomization = function(anchor, use_image) {
+        options = {
+            editable: true,
+            anchor: anchor || ANCHOR,
+            classname: "",
+            base_classname: "kl-quotecomposition",
+            use_image: use_image || USE_IMAGE,
+            download_ready: false
+        }
+
+        return options;
+    },
+
+
+    /**
+     * createComposition: composes the layout for image and quote and appends it to the container element 
+     *
+     * @param String urlData
+     * @param Boolean anchor
+     * @param Boolean use_image
+     * @returns {undefined}
+     */
+    _createComposition = function(data, anchor, use_image) {
+        var layoutOptions = createPullquoteLayoutCustomization(anchor, use_image);
+        var composition = KL.QuoteComposition().createPullquoteComposition(data, layoutOptions);
+
+        el.container_content.appendChild(composition.container);
+        quote_compositions.push(composition);
+    };
+
+    /**
+     * _init: creates the composition for pullquote
+     *
+     * @returns {undefined}
+     */
+    _init = function() {
+        urlVars = _getURLVars(window.location.href);
 
         // LAYOUT
         el.container.innerHTML = "";
         el.container_content = KL.Helper.create('div', 'editor-content', el.container);
 
-        // Create Quotes
-        createComposition(urlVars, false, true);
-        createComposition(urlVars, "left", true);
-        createComposition(urlVars, "right", true);
-        createComposition(urlVars, false, false);
-    };
+        // Create Content
+        urlVars = createPullquoteContent(urlVars);
 
-    createComposition = function(d, anchor, use_image) {
-        var composition = new KL.QuoteComposition().init(d, {anchor:anchor, use_image:use_image});
-        el.container_content.appendChild(composition.container);
-        quote_compositions.push(composition);
-    };
-
-    /*	INIT
-    ================================================== */
-    load_quotes();
+        // Create Pullquote Composition
+        _createComposition(urlVars, false, true);
+        _createComposition(urlVars, "left", true);
+        _createComposition(urlVars, "right", true);
+        _createComposition(urlVars, false, false);
+    }();
 
 })();
