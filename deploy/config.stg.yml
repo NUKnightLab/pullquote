@@ -1,5 +1,5 @@
 domains: "{{ project_name }}.knilab.com"
-static_bucket: "media.knilab.com"
+static_bucket: "pullquote.knilab.com"
 ssl:
   ssl_certificate: "/etc/nginx/ssl/knilab/knilab-bundle.crt"
   ssl_certificate_key: "/etc/nginx/ssl/knilab/knilab-com.key"

@@ -1,5 +1,5 @@
 domains: "{{ project_name }}.knightlab.com"
-static_bucket: "media.knightlab.com"
+static_bucket: "pullquote.knightlab.com"
 
 ssl:
   ssl_certificate: "/etc/nginx/ssl/knightlab/knightlab-bundle.crt"
