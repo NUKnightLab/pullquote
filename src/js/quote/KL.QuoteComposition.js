@@ -75,30 +75,31 @@ KL.QuoteComposition = function() {
         // width 1010
         // height 566
         var _self = this,
-            service_url = "https://ccq6cw2sih.execute-api.us-east-1.amazonaws.com/prod/PhantomJS?width=1010&height=566&url=",
-            render_page_url = "https://nuknightlab.github.io/pullquote/dist/render.html",
-            url_vars = "?",
+            service_url = "https://screenshot.knightlab.com",
+            render_page_url = "?&amp;url=pullquote.knightlab.com/render.html",
+            url_vars = "",
             api_url = "";
 
-            url_vars += "anchor=" + options.anchor;
-            url_vars += "&quote=" + _el.blockquote_p.innerHTML;
-            url_vars += "&cite=" + _el.citation.innerHTML;
-            url_vars += "&image=" + data.image;
-            url_vars += "&credit=" + data.credit;
-            url_vars += "&use_image=" + options.use_image;
+            url_vars += "&amp;anchor=" + options.anchor;
+            url_vars += "&amp;quote=" + _el.blockquote_p.innerHTML;
+            url_vars += "&amp;cite=" + _el.citation.innerHTML;
+            url_vars += "&amp;image=" + data.image;
+            url_vars += "&amp;credit=" + data.credit;
+            url_vars += "&amp;use_image=" + options.use_image;
+            url_vars += "&amp;width=500&amp;height=300";
 
         if (!window.location.origin) {
             window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
         }
 
-        api_url = service_url + render_page_url + url_vars;
+        api_url = encodeURIComponent(service_url + render_page_url + url_vars);
 
         KL.Data.getJSON(api_url, function(d) {
-            _self.data.download = d.screenshotLocation;
-            _self._el.button_download.href = _self.data.download;
-            _self._el.button_download.download = "pullquote.png";
-            _self.options.download_ready = true;
-            _self._onDownload();
+            //_self.data.download = d.screenshotLocation;
+            //_self._el.button_download.href = _self.data.download;
+            //_self._el.button_download.download = "pullquote.png";
+            //_self.options.download_ready = true;
+            //_self._onDownload();
         });
     },
 

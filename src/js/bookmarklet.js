@@ -48,7 +48,7 @@ function iFrame() {
             i = "image=" + image,
             c = "cite=" + cite;
 
-        url = "http://localhost:8080/compositions.html?" + q + "&" + i + "&" + c;
+        url = "http://pullquote.knightlab.com/compositions.html?" + q + "&" + i + "&" + c;
 
         return url;
     }

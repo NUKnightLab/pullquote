@@ -5,6 +5,7 @@ module.exports = {
     getJSON: function(path, success, error) {
         var request = new XMLHttpRequest();
 
+        path = decodeURIComponent(path);
         request.open('GET', path, true);
 
         request.onload = function() {
@@ -15,9 +16,9 @@ module.exports = {
             }
         };
 
-        request.onerror = function() {
+        request.onerror = function(e) {
             // There was a connection error of some sort
-            error(request);
+            console.error(request.statusText);
         };
 
         request.send();
