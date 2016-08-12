@@ -1,37 +1,91 @@
-<a href="" onClick="event.preventDefault();bookmarklet.iFrame().init()" class="buttonBookmark">Button Here</a>
+<html>
+<body>
+  <header id="overview" class="panel">
+    <div class="row text-center">
+      <div class="corner-logo">
+        <a href="https://knightlab.com"><img src="https://cdn.knightlab.com/libs/purpleline/latest/img/logos/logo_horizontal_NOtagline_615x205_transparent_padded.png" data-pin-nopin="true"></a>
+      </div>
+        <div class="large-12 columns">
+            <h1 class="logo-mark xl">Pullquote</h1>
+            <h2 class="intro">A convenient tool to share quotes with style</h2>
+        </div>
+      </div>
+  </header>
+  <section id="demo">
+    <div class="row text-center">
+          <p>To run the bookmarklet, drag the<a href="javascript:(function(){
+              if(document.getElementById('bookmarklet')) {
+                  document.getElementById('bookmarklet').remove();
+              } else {
+                  var importScript = (function (oHead) {
 
-<a href="javascript:(function(){
-    if(document.getElementById('bookmarklet')) {
-        document.getElementById('bookmarklet').remove();
-    } else {
-        var importScript = (function (oHead) {
+                    function loadError (oError) {
+                        throw new URIError('The script ' + oError.target.src + ' is not accessible.');
+                    }
 
-          function loadError (oError) {
-              throw new URIError('The script ' + oError.target.src + ' is not accessible.');
-          }
+                    return function (sSrc, fOnload) {
+                        var oScript = document.createElement('script');
+                        oScript.type = 'text\/javascript';
+                        oScript.onerror = loadError;
+                        if (fOnload) { oScript.onload = fOnload; }
+                        oHead.appendChild(oScript);
+                        oScript.src = sSrc;
+                    }
 
-          return function (sSrc, fOnload) {
-              var oScript = document.createElement('script');
-              oScript.type = 'text\/javascript';
-              oScript.onerror = loadError;
-              if (fOnload) { oScript.onload = fOnload; }
-              oHead.appendChild(oScript);
-              oScript.src = sSrc;
-          }
+                  })(document.head || document.getElementsByTagName('head')[0]);
 
-        })(document.head || document.getElementsByTagName('head')[0]);
+                  var style = document.createElement('link');
+                  style.rel = 'stylesheet';
+                  style.href = 'http://localhost:8080/css/base.css';
+                  document.head.appendChild(style);
 
-        var style = document.createElement('link');
-        style.rel = 'stylesheet';
-        style.href = 'http://localhost:8080/css/base.css';
-        document.head.appendChild(style);
+                  importScript('http://localhost:8080/js/bookmarklet.js', function() {
+                      bookmarklet.iFrame().init();
+                  });
+              }
+      })();"
 
-        importScript('http://localhost:8080/js/bookmarklet.js');
-
-        bookmarklet.iFrame().init();
-    }
-
-    })();"
-
-    onClick="javascript:(function(){console.log('hello!')})();">Add me</a>
-
+      onClick="javascript:(function(){console.log('hello!')})();"> Pullquote </a>link to your bookmarks bar.</p>
+    </div>
+    <div class="demo-gif" >
+      <img src="assets/demo.gif" alt="gif demo of Pullquote">
+    </div>
+  </section>
+    <footer>
+      <div class="about-knightlab">
+        <div id="knightlab-logo-column">
+          <a href="http://knightlab.northwestern.edu" target="_blank"><img src="http://knightlab.northwestern.edu/wp-content/uploads/2014/12/logo_stacked.png" class="img-responsive"></a>
+          <ul class="contact-icons">
+            <li><a title="follow @knightlab on Twitter" href="http://www.twitter.com/knightlab"><i class="fa fa-twitter"></i></a></li>
+            <li><a title="Knight Lab on Facebook" href="//www.facebook.com/knightlab"><i class="fa fa-facebook"></i></a></li>
+            <li><a title="email Knight Lab" href="mailto:Knightlab@northwestern.edu"><i class="fa fa-envelope-o"></i></a></li>
+            <li><a title="Knight Lab on GitHub" href="//github.com/NUKnightLab/"><i class="fa fa-github-alt"></i></a></li>
+          </ul>
+        </div>
+        <div id="knightlab-description">
+          <p>The <a title="Northwestern University" href="http://www.northwestern.edu/" target="_blank">Northwestern University</a> Knight Lab is a team of technologists and journalists working at advancing news media innovation through exploration and experimentation.</p>
+          <p>A joint initiative of the <a href="http://www.mccormick.northwestern.edu/" target="_blank">Robert R. McCormick School of Engineering and Applied Science</a> and the<a href="http://www.medill.northwestern.edu/" target="_blank"> Medill School of Journalism, Media, Integrated Marketing Communications</a>.</p><img src="http://knightlab.northwestern.edu/wp-content/uploads/2014/12/Logos-Horizontal.png" class="img-responsive logos">
+        </div>
+        <div class="contact">
+          <address itemscope="" itemtype="http://data-vocabulary.org/Organization">
+            <span style="display:none;" itemprop="name" title="Knight Lab | Advancing news media innovation through exploration and experimentation." class="address-name">Knight Lab</span>
+            <span itemprop="tel" class="tel">(847) 467-4971 | </span>
+            <span itemprop="address" itemscope="" itemtype="http://data-vocabulary.org/Address" class="address">
+              <span itemprop="street-address" class="street-address"><a href="//maps.google.com/maps?q=1845+Sheridan+Road+Evanston+IL+6020&hl=en&ll=42.050942,-87.673511&spn=0.003059,0.004898&sll=42.050647,-87.674246&sspn=0.012237,0.019591&gl=us&hnear=1845+Sheridan+Rd,+Evanston,+Cook,+Illinois+60201&t=m&z=18&iwloc=A" target="_blank">1845 Sheridan Road Fisk #109 & #111</span>,
+              <span itemprop="locality">Evanston,</span>
+              <span itemprop="region">IL</span>
+              <span itemprop="postal-code">60208 |</span>
+              <span itemprop="country-name" class="address-country">United States</span>
+            </span>
+            <span style="display:none;" itemprop="geo" itemscope="" itemtype="http://www.data-vocabulary.org/Geo/" class="geo">
+              Latitude: <span itemprop="latitude">42.056893</span><br>
+              Longitude: <span itemprop="longitude">-87.676735</span>
+            </span>
+            <a style="display:none;" href="http://knightlab.northwestern.edu" itemprop="url" class="url">Northwestern University Knight Lab | Advancing media innovation through exploration and experimentation.</a>
+          </address>
+          <span class="copyright">| Copyright 2015, Northwestern University</span>
+        </div>
+      </div><!-- end .about-knightlab -->
+    </footer>
+</body>
+</html>

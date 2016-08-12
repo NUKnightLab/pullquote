@@ -6,7 +6,8 @@ function iFrame() {
     function init() {
         text = grabTextSelection();
         image = grabOgImage();
-        url = composeURL(text, image, "publication name")
+        cite = grabCitation();
+        url = composeURL(text, image, cite)
         bookMarklet = document.createElement('div');
         bookMarklet.className = 'bookMarklet';
         bookMarklet.innerHTML = "<button class='closeButton' onClick='bookmarklet.iFrame().closeiFrame()'></button><iframe class='pq--iframe' src='" + url + "'></iframe><div class='backdrop'></div>";
@@ -32,6 +33,12 @@ function iFrame() {
         } else {
           return image = "http://placekitten.com/500/300"
         }
+    }
+
+    function grabCitation(){
+      var cite;
+      document.domain.split("\.")[0];
+      return cite;
     }
 
     function composeURL(quote, image, cite) {
