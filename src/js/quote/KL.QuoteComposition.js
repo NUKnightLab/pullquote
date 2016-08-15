@@ -136,10 +136,14 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _initLayout = function (that) {
-        var template = document.getElementById('pq-iframe-content-template').innerHTML;
-        var output = Handlebars.compile(template);
+        var template = document.getElementById('pq-iframe-content-template').innerHTML,
+            output = Handlebars.compile(template),
 
-        document.getElementById('pullquote-container').innerHTML = output(that.data);
+            container = document.getElementById('pullquote-container'),
+            wrapper = document.createElement('div');
+
+            wrapper.innerHTML = output(that.data);
+            document.getElementById('pullquote-container').appendChild(wrapper);
         // Listener for save button
         document.getElementsByClassName('kl-button')[0].addEventListener('click', _onDownload, false)
         

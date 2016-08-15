@@ -97,11 +97,13 @@ KL.Pullquote = (function() {
      * @param Boolean use_image
      * @returns {undefined}
      */
-    _createComposition = function(data, anchor, use_image) {
-        var layoutOptions = createPullquoteLayoutCustomization(anchor, use_image),
-            composeData = _.assign(data, layoutOptions);
-        
-        KL.QuoteComposition().createPullquoteComposition(composeData);
+    _createComposition = function(data, options) {
+        for(i = 0; i < options.length; i++) {
+            var layoutOptions = createPullquoteLayoutCustomization(options[i].anchor, options[i].use_image),
+                composeData = _.assign(data, layoutOptions);
+
+            KL.QuoteComposition().createPullquoteComposition(composeData);
+        }
     };
 
     /**
@@ -115,11 +117,13 @@ KL.Pullquote = (function() {
         // Create Content
         urlVars = createPullquoteContent(urlVars);
 
-        // Create Pullquote Composition
-        _createComposition(urlVars, false, true);
-        _createComposition(urlVars, "left", true);
-        _createComposition(urlVars, "right", true);
-        _createComposition(urlVars, false, false);
+        // Create Pullquote Composition with 4 images with specific layout options
+        _createComposition(urlVars, [
+            { position: false, use_image: true },
+            { position: "left", use_image: true },
+            { position: "right", use_image: true },
+            { position: false, use_image: false }
+        ])
     }();
 
 })();
