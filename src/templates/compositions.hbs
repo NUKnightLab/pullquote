@@ -3,6 +3,26 @@ title: "Pullquote Compositions"
 ---
 
 <div id="pullquote-container"></div>
-{{!-- {{Comments don't seem to work}} --}}
+
+{{{{raw-helper}}}}
+<script id="pq-iframe-content-template" type="text/x-handlebars-template">
+    <div class="kl-quotecomposition {{anchor}} kl-editable">
+        <div class="kl-quotecomposition-container">
+            <div class="kl-quotecomposition-text">
+                <blockquote class="kl-quote-large">
+                    <p contenteditable="true">{{quote}}</p>
+                    <cite contenteditable="true">{{cite}}</cite>
+                </blockquote>
+            </div>
+            <div class="kl-quotecomposition-background"></div>
+            <div class="kl-quotecomposition-image" style="background-image:url('{{image}}')"></div>
+        </div>
+        <div class="kl-button-group">
+            <a class="kl-button kl-button-right">Save</a>
+        </div>
+    </div>
+</script>
+{{{{/raw-helper}}}}
+
 <script src="js/compositions.js?v10"></script>
 
