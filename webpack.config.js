@@ -17,11 +17,25 @@ module.exports = {
         libraryTarget: 'var',
         library: "[name]"
     },
+    node: {
+        fs: "empty"
+    },
     resolve: {
         root: componentPath
     },
     resolveLoader: {
         root: path.join(__dirname, "node_modules")
+    },
+    module: {
+        loaders: [{
+            test: /\.hbs$/,
+            loader: __dirname + "../../../",
+            query: {
+                partialDirs: [
+                    path.join(__dirname, 'src', 'templates', 'layouts')
+                ]
+            }
+        }]
     }
 }
 
