@@ -2,6 +2,7 @@
   Pullquote Bookmarklet
 */
 function iFrame() {
+    var Handlebars = require('handlebars');
 
     function init() {
         text = grabTextSelection();
@@ -9,8 +10,15 @@ function iFrame() {
         cite = grabCitation();
         url = composeURL(text, image, cite)
         bookMarklet = document.createElement('div');
-        bookMarklet.className = 'bookMarklet';
-        bookMarklet.innerHTML = "<button class='closeButton' onClick='bookmarklet.iFrame().closeiFrame()'></button><iframe class='pq--iframe' src='" + url + "'></iframe><div class='backdrop'></div>";
+        bookMarklet.id = 'bookMarklet';
+
+        bookMarklet.setAttribute('data-template', 'pq-iframe-template')
+
+        //load template into div
+        var template = document.getElementById('pq-iframe-template').innerHTML;
+        var output = Handlebars.compile(template);
+        var context = {"url": url, name: "hello"}
+        bookMarklet.innerHTML = output(context);
 
         document.body.appendChild(bookMarklet);
         //preventPageScroll();
