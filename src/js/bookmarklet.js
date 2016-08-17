@@ -77,6 +77,6 @@ function iFrame() {
 }
 
 module.exports = {
-    iFrame
+    iFrame: iFrame
 }
 

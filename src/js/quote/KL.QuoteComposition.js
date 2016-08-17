@@ -92,8 +92,8 @@ KL.QuoteComposition = function() {
      * @param Object that = undefined(default)
      * @returns {undefined}
      */
-    _determineTextSize = function(that = undefined) {
-        that = that;
+    _determineTextSize = function(that) {
+        that = that || undefined;
         if (that !== undefined) {data = that.data;}
         var quote_detail = {
             sizeclass: "",
