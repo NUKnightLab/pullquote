@@ -41,10 +41,10 @@
 
                   var style = document.createElement('link');
                   style.rel = 'stylesheet';
-                  style.href = 'http://localhost:8080/css/base.css';
+                  style.href = 'http://pullquote.knightlab.com/css/base.css';
                   document.head.appendChild(style);
 
-                  importScript('http://localhost:8080/js/bookmarklet.js', function() {
+                  importScript('http://pullquote.knightlab.com/js/bookmarklet.js', function() {
                       bookmarklet.iFrame().init();
                   });
               }
