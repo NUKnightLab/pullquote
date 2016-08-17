@@ -4,10 +4,9 @@ var webpack = require('webpack'),
     componentPath = path.resolve('./src/js');
 
 module.exports = {
-    context: path.join(__dirname), 
     entry: {
         vendor: [
-            'handlebars'    
+            'handlebars', 'lodash'
         ],
         'bookmarklet': "./src/js/bookmarklet.js",
         'overlay': "./src/js/overlay.js",
@@ -17,8 +16,6 @@ module.exports = {
     output: {
         path: path.join(__dirname, "./dist/js"),
         filename: "[name].js",
-        libraryTarget: 'var',
-        library: "[name]"
     },
     module: {
         loaders: [
@@ -29,9 +26,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin(
-            { name: 'commons', filename: 'common.js', minChunks: 0 }
-        )
+        new webpack.ProvidePlugin({
+            _: "lodash"
+        }),
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
     ],
     node: {
         fs: "empty"

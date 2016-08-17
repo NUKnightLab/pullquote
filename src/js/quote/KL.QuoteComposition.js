@@ -9,9 +9,7 @@ module.exports = KL.Class.extend({
 
 KL.QuoteComposition = function() {
     var Handlebars = require('handlebars'),
-        
-        blockquote_input, data,
-        animator = null;
+        data;
 
     /**
      * createPullquoteComposition: function composing layout customization and composition
@@ -57,8 +55,7 @@ KL.QuoteComposition = function() {
     _getImage = function(e) {
         // width 1010
         // height 566
-        var _self = this,
-            service_url = "https://screenshot.knightlab.com",
+        var service_url = "https://screenshot.knightlab.com",
             render_page_url = "?&amp;url=pullquote.knightlab.com/render.html",
             url_vars = "",
             api_url = "";
@@ -138,9 +135,9 @@ KL.QuoteComposition = function() {
      */
     _initLayout = function (that) {
         var template = document.getElementById('pq-iframe-content-template').innerHTML,
-            output = Handlebars.compile(template),
+            output = Handlebars.compile(template);
 
-            container = document.getElementById('pullquote-container').innerHTML += output(that.data);
+        document.getElementById('pullquote-container').innerHTML += output(that.data);
         // Listener for save button
         document.getElementsByClassName('kl-button')[0].addEventListener('click', _onDownload, false)
         

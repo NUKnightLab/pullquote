@@ -11,14 +11,9 @@ KL.Data = require("data/KL.Data");
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
 KL.Helper = require("helpers/KL.Helper");
 
-_ = require("lib/lodash.js");
-
 KL.Pullquote = (function() {
 
-    var el = document.getElementById('pq-iframe-content-template'),
-        quote_compositions = [],
-
-        QUOTE = "Insert Quote Here",
+    var QUOTE = "Insert Quote Here",
         CITE = "Insert Citation Here",
         HEADLINE = "Insert Headline Here",
         IMAGE = "assets/placeholder.jpg",

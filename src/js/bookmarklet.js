@@ -61,11 +61,6 @@ function iFrame() {
         return url;
     }
 
-    function preventPageScroll() {
-        var body = document.getElementsByTagName('body');
-        document.body.style.position = "fixed";
-    }
-
     function closeiFrame() {
         document.body.removeChild(bookMarklet)
     }

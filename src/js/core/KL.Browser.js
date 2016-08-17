@@ -21,8 +21,7 @@
         ie3d = ie && ('transition' in doc.style),
         webkit3d = ('WebKitCSSMatrix' in window) && ('m11' in new window.WebKitCSSMatrix()) && !android23,
         gecko3d = 'MozPerspective' in doc.style,
-        opera3d = 'OTransition' in doc.style,
-        opera = window.opera,
+        opera3d = 'OTransition' in doc.style;
 
 
        retina = 'devicePixelRatio' in window && window.devicePixelRatio > 1;
