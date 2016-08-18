@@ -82,7 +82,7 @@ KL.Pullquote = (function() {
             use_image: use_image || USE_IMAGE,
             download_ready: false
         }
-
+        console.log(options);
         return options;
     }, 
 
