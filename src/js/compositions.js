@@ -2,6 +2,8 @@
   Pullquote
 */
 
+Handlebars = require('handlebars');
+
 // Knight Lab Namespace
 KL = {};
 
