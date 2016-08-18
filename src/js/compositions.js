@@ -97,9 +97,11 @@ KL.Pullquote = (function() {
     _createComposition = function(data, options) {
         console.log('_createComposition');
         for(i = 0; i < options.length; i++) {
-            var layoutOptions = createPullquoteLayoutCustomization(options[i].anchor, options[i].use_image),
+            var layoutOptions = createPullquoteLayoutCustomization(
+                options[i].anchor, options[i].use_image),
                 composeData = _.assign(data, layoutOptions);
 
+            console.log(layoutOptions);
             console.log(composeData);
             console.log('call quote composition');
             KL.QuoteComposition().createPullquoteComposition(composeData);
