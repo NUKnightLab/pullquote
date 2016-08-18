@@ -144,13 +144,16 @@ KL.QuoteComposition = function() {
         var template = document.getElementById('pq-iframe-content-template').innerHTML,
             output = Handlebars.compile(template);
 
+        console.log(template);
         document.getElementById('pullquote-container').innerHTML += output(that.data);
         // Listener for save button
         document.getElementsByClassName('kl-button')[0].addEventListener('click', _onDownload, false)
 
         var blockquote = document.getElementsByClassName('kl-quote-large')[0];
+        console.log(blockquote);
         that.blockquote_input = blockquote.getElementsByTagName('p')[0];
 
+        console.log('call determine text size');
         _determineTextSize(that);
     },
 
