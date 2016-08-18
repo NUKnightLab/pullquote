@@ -1,6 +1,8 @@
 /*	KL.QuoteComposition
 ================================================== */
 
+Handlebars = require('handlebars');
+
 KL.Class = require("core/KL.Class");
 
 module.exports = KL.Class.extend({
@@ -9,8 +11,8 @@ module.exports = KL.Class.extend({
 
 KL.QuoteComposition = function() {
     console.log('QC:QuoteComposition');
-    var Handlebars = require('handlebars'),
-        data;
+    //var Handlebars = require('handlebars'),
+    var data;
 
     /**
      * createPullquoteComposition: function composing layout customization and composition
