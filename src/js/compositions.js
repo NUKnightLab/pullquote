@@ -68,7 +68,7 @@ KL.Pullquote = (function() {
     }
 
     /**
-     * createPullQuoteLayoutCustomizations: creates customizations for each individual pullquote item; if none given, it uses defaults 
+     * createPullQuoteLayoutCustomizations: creates customizations for each individual pullquote item; if none given, it uses defaults
      *
      * @param Boolean anchor
      * @param Boolean use_image
@@ -84,10 +84,10 @@ KL.Pullquote = (function() {
         }
         console.log(options);
         return options;
-    }, 
+    },
 
     /**
-     * createComposition: composes the layout for image and quote and appends it to the container element 
+     * createComposition: composes the layout for image and quote and appends it to the container element
      *
      * @param String urlData
      * @param Boolean anchor
