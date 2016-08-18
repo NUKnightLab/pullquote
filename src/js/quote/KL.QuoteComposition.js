@@ -142,10 +142,11 @@ KL.QuoteComposition = function() {
     _initLayout = function (that) {
         console.log('QC:_initLayout');
         console.log(Handlebars);
-        var template = document.getElementById('pq-iframe-content-template').innerHTML,
-            output = Handlebars.compile(template);
-
+        var template = document.getElementById('pq-iframe-content-template').innerHTML;
         console.log(template);
+        var output = Handlebars.compile(template);
+        console.log(output);
+
         document.getElementById('pullquote-container').innerHTML += output(that.data);
         // Listener for save button
         document.getElementsByClassName('kl-button')[0].addEventListener('click', _onDownload, false)
