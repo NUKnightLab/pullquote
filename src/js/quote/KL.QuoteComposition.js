@@ -141,6 +141,7 @@ KL.QuoteComposition = function() {
      */
     _initLayout = function (that) {
         console.log('QC:_initLayout');
+        console.log('test for cache');
         var template = document.getElementById('pq-iframe-content-template').innerHTML,
             output = Handlebars.compile(template);
 
