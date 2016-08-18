@@ -76,6 +76,7 @@ KL.Pullquote = (function() {
      */
     createPullquoteLayoutCustomization = function(anchor, use_image) {
         console.log('createPullquoteLayoutCustomization');
+        console.log('going crazy down there at the lake');
         options = {
             editable: true,
             anchor: anchor || ANCHOR,
