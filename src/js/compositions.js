@@ -10,6 +10,7 @@ KL.DomEvent = require("dom/KL.DomEvent");
 KL.Data = require("data/KL.Data");
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
 KL.Helper = require("helpers/KL.Helper");
+console.log('loaded dependencies');
 
 KL.Pullquote = (function() {
 
@@ -74,6 +75,7 @@ KL.Pullquote = (function() {
      * @returns Object options
      */
     createPullquoteLayoutCustomization = function(anchor, use_image) {
+        console.log('createPullquoteLayoutCustomization');
         options = {
             editable: true,
             anchor: anchor || ANCHOR,
@@ -93,6 +95,7 @@ KL.Pullquote = (function() {
      * @returns {undefined}
      */
     _createComposition = function(data, options) {
+        console.log('_createComposition');
         for(i = 0; i < options.length; i++) {
             var layoutOptions = createPullquoteLayoutCustomization(options[i].anchor, options[i].use_image),
                 composeData = _.assign(data, layoutOptions);
@@ -107,6 +110,7 @@ KL.Pullquote = (function() {
      * @returns {undefined}
      */
     _init = function() {
+        console.log('_init');
         urlVars = _getURLVars(window.location.href);
 
         // Create Content
