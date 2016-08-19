@@ -22,6 +22,7 @@
               if(document.getElementById('bookmarklet')) {
                   document.getElementById('bookmarklet').remove();
               } else {
+                  console.log('define import script');
                   var importScript = (function (oHead) {
 
                     function loadError (oError) {
@@ -39,11 +40,13 @@
 
                   })(document.head || document.getElementsByTagName('head')[0]);
 
+                  console.log('attach stylesheet');
                   var style = document.createElement('link');
                   style.rel = 'stylesheet';
                   style.href = 'http://pullquote.knightlab.com/css/base.css';
                   document.head.appendChild(style);
 
+                  console.log('call import script');
                   importScript('http://pullquote.knightlab.com/js/bookmarklet.js', function() {
                       bookmarklet.iFrame().init();
                   });
