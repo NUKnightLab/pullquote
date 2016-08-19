@@ -3,7 +3,8 @@ var _ = require("../src/js/lib/lodash.js"),
     fs = require('fs-extra'),
     path = require('path'),
     Handlebars = require('handlebars'),
-    globby = require('globby');
+    globby = require('globby'),
+    shell = require('shelljs');
 
 function renderTemplate(templatePath) {
   var file = fs.readFileSync(templatePath, 'utf8'),
@@ -27,7 +28,7 @@ function build() {
   var globby = require('globby'),
       _ = require('../src/js/lib/lodash.js');
 
-  var hbsTemplates = globby.sync('src/templates/*.hbs');
+  var hbsTemplates = globby.sync('src/templates/*');
 
   //register helper
   Handlebars.registerHelper('raw-helper', function(options) {
@@ -35,12 +36,20 @@ function build() {
   });
 
   _.forEach(hbsTemplates, function(file, i) {
-    var filePattern = path.dirname(file).split('src/templates/')[1],
-        fileName = path.basename(file, '.hbs'),
-        template = renderTemplate(file),
-        page = renderPage(template, 'src/templates/layouts/default.hbs');
+      filePattern = file.split('src/templates/')[1];
+      //check if filePattern is not in a dir like reusable template
+      if(filePattern.includes('.hbs')) {
+          fileName = path.basename(file, '.hbs'),
+          template = renderTemplate(file),
+          page = renderPage(template, 'src/templates/layouts/default.hbs');
 
-    fs.outputFileSync(`dist/${fileName}.html`, page, 'utf8');
+          fs.outputFileSync(`dist/${fileName}.html`, page, 'utf8');
+      } else {
+          if(file.split(path.dirname(file))[1].includes('reusable-templates')) {
+              var fileThing = globby.sync('src/templates/reusable-templates/*.hbs')
+              fs.copy(fileThing[0], "dist/templates/thing.html", false)
+          }
+      }
   });
 
 }
