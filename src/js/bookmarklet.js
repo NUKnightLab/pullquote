@@ -12,8 +12,6 @@ function iFrame() {
         bookMarklet = document.createElement('div');
         bookMarklet.id = 'bookMarklet';
 
-        bookMarklet.setAttribute('data-template', 'pq-iframe-template')
-
         //load template into div
         var template = document.getElementById('pq-iframe-template').innerHTML;
         var output = Handlebars.compile(template);
