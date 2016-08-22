@@ -9,9 +9,15 @@ function iFrame() {
         image = grabOgImage();
         cite = grabCitation();
         url = composeURL(text, image, cite)
+
+        loadTemplate(url);
+
+        return false;
+    }
+
+    function loadTemplate(url) {
         bookMarklet = document.createElement('div');
         bookMarklet.id = 'bookMarklet';
-
         //load template into div
         var template = document.getElementById('pq-iframe-template').innerHTML;
         var output = Handlebars.compile(template);
@@ -19,9 +25,6 @@ function iFrame() {
         bookMarklet.innerHTML = output(context);
 
         document.body.appendChild(bookMarklet);
-        //preventPageScroll();
-
-        return false;
     }
 
     function grabTextSelection() {
