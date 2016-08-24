@@ -147,14 +147,6 @@ KL.QuoteComposition = function() {
         var template = document.getElementById('pq-iframe-content-template').innerHTML;
         console.log(template);
         var output = Handlebars.compile(template);
-        console.log('output');
-        console.log(output);
-        console.log('that.data');
-        console.log(that.data);
-        console.log('output(that.data)');
-        console.log(output(that.data));
-        console.log("document.getElementById('pullquote-container').innerHTML");
-        console.log(document.getElementById('pullquote-container').innerHTML);
 
         document.getElementById('pullquote-container').innerHTML += output(that.data);
         // Listener for save button

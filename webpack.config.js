@@ -5,6 +5,9 @@ var webpack = require('webpack'),
 
 module.exports = {
     entry: {
+        vendor: [
+            'handlebars', 'lodash'
+        ],
         bookmarklet: "./src/js/bookmarklet.js",
         overlay: "./src/js/overlay.js",
         compositions: "./src/js/compositions.js",
@@ -19,6 +22,14 @@ module.exports = {
     node: {
         fs: "empty"
     },
+    module: {
+        loaders: [
+            { test: /\.hbs$/, loader: 'handlebars-loader' },
+        ]
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
+    ],
     resolve: {
         root: componentPath,
         alias: {
@@ -28,7 +39,7 @@ module.exports = {
     resolveLoader: {
         root: path.join(__dirname, "node_modules"),
         alias: {
-            'hbs': 'handlebars'
+            'hbs': 'handlebars-loader'
         }
     }
 }
