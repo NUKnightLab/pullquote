@@ -47,7 +47,7 @@ function build() {
       } else {
           if(file.split(path.dirname(file))[1].includes('reusable-templates')) {
               var fileThing = globby.sync('src/templates/reusable-templates/*.hbs')
-              fs.copy(fileThing[0], "dist/templates/thing.html", false)
+              fs.copy(fileThing[0], "dist/templates/template.html", false)
           }
       }
   });

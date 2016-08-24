@@ -18,10 +18,13 @@ function iFrame() {
     function loadTemplate(url) {
         bookMarklet = document.createElement('div');
         bookMarklet.id = 'bookMarklet';
+
+        bookMarklet.setAttribute('data-template', 'pq-iframe-template')
+
         //load template into div
         var template = document.getElementById('pq-iframe-template').innerHTML;
         var output = Handlebars.compile(template);
-        var context = {"url": url, name: "hello"}
+        var context = {url: url}
         bookMarklet.innerHTML = output(context);
 
         document.body.appendChild(bookMarklet);

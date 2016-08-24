@@ -46,6 +46,13 @@
                   style.href = 'http://pullquote.knightlab.com/css/base.css';
                   document.head.appendChild(style);
 
+                  var req = new XMLHttpRequest();
+                  req.addEventListener('load', function() {
+                    document.body.innerHTML += this.responseText;
+                  });
+                  req.open('GET', 'http://pullquote.knightlab.com/templates/template.html');
+                  req.send();
+
                   console.log('call import script');
                   importScript('http://pullquote.knightlab.com/js/bookmarklet.js', function() {
                       bookmarklet.iFrame().init();
@@ -95,13 +102,6 @@
         </div>
       </div><!-- end .about-knightlab -->
     </footer>
-    {{{{raw-helper}}}}
-    <script id="pq-iframe-template" type="text/x-handlebars-template">
-        <button class="closeButton" onClick="bookmarklet.iFrame().closeiFrame()"></button>
-        <iframe class="pq--iframe" src="{{url}}"></iframe>
-        <div class="backdrop"></div>
-    </script>
-    {{{{/raw-helper}}}}
 </body>
 </html>
 
