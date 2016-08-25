@@ -49,15 +49,15 @@
                   var req = new XMLHttpRequest();
                   req.addEventListener('load', function() {
                     window.stash = this.responseText;
+                    var p = new DOMParser(),
+                        pq = p.parseFromString(stash, 'text/html'),
+                        script = pq.getElementsByTagName('script');
+                    for(i=0; i<script.length; i++) {
+                      document.body.appendChild(script[0]);
+                    }
                   });
                   req.open('GET', 'http://pullquote.knightlab.com/templates/template.html');
                   req.send();
-                  var p = new DOMParser(),
-                      pq = p.parseFromString(stash, 'text/html');
-                      script = pq.getElementsByTagName('script');
-                  for(i=0; i<script.length; i++) {
-                    document.body.appendChild(script[0]);
-                  }
 
                   console.log('call import script');
                   importScript('http://pullquote.knightlab.com/js/bookmarklet.js', function() {
