@@ -68,8 +68,8 @@ KL.QuoteComposition = function() {
             api_url = "";
 
             url_vars += "&amp;anchor=" + options.anchor;
-            url_vars += "&amp;quote=" + _el.blockquote_p.innerHTML;
-            url_vars += "&amp;cite=" + _el.citation.innerHTML;
+            url_vars += "&amp;quote=" + data.quote;
+            url_vars += "&amp;cite=" + data.cite;
             url_vars += "&amp;image=" + data.image;
             url_vars += "&amp;credit=" + data.credit;
             url_vars += "&amp;use_image=" + options.use_image;

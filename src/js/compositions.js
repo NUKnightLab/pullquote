@@ -103,7 +103,7 @@ KL.Pullquote = (function() {
         console.log('_createComposition');
         for(i = 0; i < options.length; i++) {
             var layoutOptions = createPullquoteLayoutCustomization(
-                options[i].anchor, options[i].use_image),
+                options[i].position, options[i].use_image),
                 composeData = _.assign(data, layoutOptions);
 
             console.log(layoutOptions);
