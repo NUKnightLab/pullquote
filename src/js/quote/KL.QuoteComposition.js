@@ -63,7 +63,7 @@ KL.QuoteComposition = function() {
         // width 1010
         // height 566
         var service_url = "https://screenshot.knightlab.com",
-            render_page_url = "?&amp;url=pullquote.knightlab.com/render.html",
+            render_page_url = "?&amp;url=http://pullquote.knightlab.com/render.html",
             url_vars = "",
             api_url = "";
 
@@ -81,13 +81,23 @@ KL.QuoteComposition = function() {
 
         api_url = encodeURIComponent(service_url + render_page_url + url_vars);
 
-        KL.Data.getJSON(api_url, function(d) {
-            //_self.data.download = d.screenshotLocation;
-            //_self._el.button_download.href = _self.data.download;
-            //_self._el.button_download.download = "pullquote.png";
-            //_self.options.download_ready = true;
-            //_self._onDownload();
-        });
+        var request = new XMLHttpRequest();
+        path = decodeURIComponent(api_url);
+        request.open('GET', path, true);
+
+        request.addEventListener('load', function() {
+            thing = this.responseText;
+            p = thing.replace("{\"", "");
+            p = p.replace("\"}", "");
+            p = p.split(",");
+            for(i=0;i<p.length;i++){
+                result = p[i].split("\":\"");
+                if(result[0].indexOf('screenshotLocation') > 0) {
+                    window.location = result[1];
+                }
+            }
+        })
+        request.send();
     },
 
     /**
