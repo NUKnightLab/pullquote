@@ -10,7 +10,6 @@ module.exports = KL.Class.extend({
 })
 
 KL.QuoteComposition = function() {
-    console.log('QC:QuoteComposition');
     //var Handlebars = require('handlebars'),
     var data;
 
@@ -22,7 +21,6 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     createPullquoteComposition = function(data) {
-        console.log('QC:createPullquoteComposition');
         var that = this;
         that.data = data;
 
@@ -36,14 +34,12 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _onContentEdit = function() {
-        console.log('QC:_onContentEdit');
         data.quote = event.target.innerHTML;
         var quote_detail = _determineTextSize();
         event.target.parentElement.className = quote_detail.sizeclass;
     },
 
     _onDownload = function(e) {
-        console.log('QC:_onDownload');
         if (data.download_ready) {
             e.target.click();
 
@@ -59,7 +55,6 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _getImage = function(e) {
-        console.log('QC:_getImage');
         // width 1010
         // height 566
         var service_url = "https://screenshot.knightlab.com",
@@ -107,7 +102,6 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _determineTextSize = function(that) {
-        console.log('QC:_determineTextSize');
         that = that || undefined;
         if (that !== undefined) {data = that.data;}
         var quote_detail = {
@@ -152,30 +146,16 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _initLayout = function (that) {
-        console.log('QC:_initLayout');
-        console.log(Handlebars);
         var template = document.getElementById('pq-iframe-content-template').innerHTML;
-        console.log(template);
         var output = Handlebars.compile(template);
-        console.log('output');
-        console.log(output);
-        console.log('that.data');
-        console.log(that.data);
-        console.log('output(that.data)');
-        console.log(output(that.data));
-        console.log("document.getElementById('pullquote-container').innerHTML");
-        console.log(document.getElementById('pullquote-container').innerHTML);
 
         document.getElementById('pullquote-container').innerHTML += output(that.data);
         // Listener for save button
         document.getElementsByClassName('kl-button')[0].addEventListener('click', _onDownload, false)
 
-        console.log('extract blockquote');
         var blockquote = document.getElementsByClassName('kl-quote-large')[0];
-        console.log(blockquote);
         that.blockquote_input = blockquote.getElementsByTagName('p')[0];
 
-        console.log('call determine text size');
         _determineTextSize(that);
     },
 
@@ -186,7 +166,6 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _initEvents = function (that) {
-        console.log('QC:_initEvents');
         if (that.data.editable) {
             that.blockquote_input.addEventListener('input', _onContentEdit, false)
         }
