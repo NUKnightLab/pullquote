@@ -56,9 +56,10 @@ KL.PullquoteRender = (function() {
 
     callScreenshot = function() {
         var service_url = "https://screenshot.knightlab.com?&amp;"
-            api_url = service_url + currentURL,
+            api_url = service_url + "url=" + currentURL,
 
             request = new XMLHttpRequest();
+
         path = decodeURIComponent(api_url);
         request.open('GET', path, true);
 
@@ -81,7 +82,7 @@ KL.PullquoteRender = (function() {
         console.log('render');
         //grab url params
         var urlVars = _getURLVars(currentURL);
-        _createComposition(urlVars)
+        _createComposition(urlVars);
         callScreenshot();
     }()
 
