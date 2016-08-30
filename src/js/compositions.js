@@ -12,8 +12,6 @@ KL.DomEvent = require("dom/KL.DomEvent");
 KL.Data = require("data/KL.Data");
 KL.QuoteComposition = require("quote/KL.QuoteComposition");
 KL.Helper = require("helpers/KL.Helper");
-console.log('loaded dependencies');
-console.log('can you hear me now?');
 
 KL.Pullquote = (function() {
 

@@ -5,6 +5,7 @@
 
 // Knight Lab Namespace
 KL = {};
+KL.QuoteComposition = require('quote/KL.QuoteComposition');
 
 // Debug Mode
 KL.debug = true;
@@ -26,49 +27,63 @@ KL.Bind = function (/*Function*/ fn, /*Object*/ obj) /*-> Object*/ {
 KL.Util = require("core/KL.Util.js");
 
 KL.PullquoteRender = (function() {
+    var currentURL = window.location.href;
 
-    // DOM ELEMENTS
-    this.el = {
-        composition: document.getElementById("kl-quote-comp"),
-        quote_text:	document.getElementById("kl-quote-text"),
-        cite: document.getElementById("kl-quote-cite"),
-        image: document.getElementById("kl-quote-image")
-    };
+    _getURLVars = function(string) {
+      var urlVars = {},
+          str = string.toString();
 
-    // DATA
-    this.data = {
-        quote: "Quote",
-        cite: "Citation",
-        image: "assets/placeholder.jpg",
-        headline: "Headline",
-        anchor: false,
-        use_image: true,
-        credit: ""
-    };
+      if(str.match('&#038;') || (str.match('&amp'))) {
+        var match = str.match('&#038') || str.match('&amp;');
+        var re = new RegExp(match,"g");
+        str = str.replace(re, '&')
+      }
 
-    // OPTIONS
-    this.options = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    };
+      urlVarArray = str.split('?')[1].split('&');
 
+      for(var i = 0; i < urlVarArray.length; i++) {
+        urlKey = urlVarArray[i].split('=')[0];
+        urlVal = urlVarArray[i].replace(/([^=]*)./, '')
+        urlVars[urlKey] = urlVal;
+      }
 
-    this.el.composition.style.marginRight = "auto";
-    this.vars = KL.Util.getUrlVars(window.location.href);
-    KL.Util.mergeData(this.data, vars);
-
-    this.el.quote_text.innerHTML = decodeURIComponent(this.data.quote);
-    this.el.cite.innerHTML = decodeURIComponent(this.data.cite);
-    console.log(this.data.use_image);
-    if (this.data.use_image == "false" || !this.data.use_image){
-        this.el.image.style.backgroundImage = "none";
-    } else {
-        this.el.image.style.backgroundImage = "url(" + this.data.image + ")";
+      return urlVars;
     }
 
-    this.el.composition.className = "kl-quotecomposition kl-anchor-" + this.data.anchor;
+    _createComposition = function(data) {
+        KL.QuoteComposition().createPullquoteComposition(data);
+    };
 
-    this.el.composition.style.transformOrigin = "left top";
-    this.el.composition.style.transform = "scale(2)";
+    callScreenshot = function() {
+        var service_url = "https://screenshot.knightlab.com?&amp;"
+            api_url = service_url + current_url,
+
+            request = new XMLHttpRequest();
+        path = decodeURIComponent(api_url);
+        request.open('GET', path, true);
+
+        request.addEventListener('load', function() {
+            thing = this.responseText;
+            p = thing.replace("{\"", "");
+            p = p.replace("\"}", "");
+            p = p.split(",");
+            for(i=0;i<p.length;i++){
+                result = p[i].split("\":\"");
+                if(result[0].indexOf('screenshotLocation') > 0) {
+                    window.location = result[1];
+                }
+            }
+        })
+        request.send();
+    }
+
+    init = function() {
+        console.log('render');
+        //grab url params
+        var urlVars = _getURLVars(currentURL);
+        _createComposition(urlVars)
+        callScreenshot();
+    }()
+
 })();
 

@@ -40,13 +40,8 @@ KL.QuoteComposition = function() {
     },
 
     _onDownload = function(e) {
-        if (data.download_ready) {
-            e.target.click();
-
-        } else {
-            _getImage(e);
-        }
-        },
+        _getImage(e);
+    },
 
     /**
      * _getImage: gets Image using phantom
@@ -55,8 +50,6 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _getImage = function(e) {
-        // width 1010
-        // height 566
         var service_url = "https://screenshot.knightlab.com",
             render_page_url = "?&amp;url=http://pullquote.knightlab.com/render.html",
             url_vars = "",
@@ -70,29 +63,15 @@ KL.QuoteComposition = function() {
             url_vars += "&amp;use_image=" + options.use_image;
             url_vars += "&amp;width=500&amp;height=300";
 
-        if (!window.location.origin) {
-            window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
-        }
+        //if (!window.location.origin) {
+        //    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+        //}
+
+        //send to render
+        window.location.href = "http://pullquote.knilab.com/render.html?" + url_vars;
 
         api_url = encodeURIComponent(service_url + render_page_url + url_vars);
 
-        var request = new XMLHttpRequest();
-        path = decodeURIComponent(api_url);
-        request.open('GET', path, true);
-
-        request.addEventListener('load', function() {
-            thing = this.responseText;
-            p = thing.replace("{\"", "");
-            p = p.replace("\"}", "");
-            p = p.split(",");
-            for(i=0;i<p.length;i++){
-                result = p[i].split("\":\"");
-                if(result[0].indexOf('screenshotLocation') > 0) {
-                    window.location = result[1];
-                }
-            }
-        })
-        request.send();
     },
 
     /**

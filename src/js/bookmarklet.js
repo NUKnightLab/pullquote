@@ -60,7 +60,7 @@ function iFrame() {
             i = "image=" + image,
             c = "cite=" + cite;
 
-        url = "http://pullquote.knightlab.com/compositions.html?" + q + "&" + i + "&" + c;
+        url = "http://pullquote.knilab.com/compositions.html?" + q + "&" + i + "&" + c;
 
         return url;
     }
