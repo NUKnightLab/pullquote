@@ -33,12 +33,6 @@ KL.PullquoteRender = (function() {
       var urlVars = {},
           str = string.toString();
 
-      if(str.match('&#038;') || (str.match('&amp'))) {
-        var match = str.match('&#038') || str.match('&amp;');
-        var re = new RegExp(match,"g");
-        str = str.replace(re, '&')
-      }
-
       urlVarArray = str.split('?')[1].split('&');
 
       for(var i = 0; i < urlVarArray.length; i++) {
@@ -54,9 +48,16 @@ KL.PullquoteRender = (function() {
         KL.QuoteComposition().createPullquoteComposition(data);
     };
 
-    callScreenshot = function() {
+    callScreenshot = function(data) {
         var service_url = "https://screenshot.knightlab.com?&amp;"
-            api_url = service_url + "url=" + currentURL,
+            url_vars = "&amp;anchor=" + data.anchor;
+            url_vars += "&amp;quote=" + data.quote;
+            url_vars += "&amp;cite=" + data.cite;
+            url_vars += "&amp;image=" + data.image;
+            url_vars += "&amp;credit=" + data.credit;
+            url_vars += "&amp;use_image=" + data.use_image;
+            url_vars += "&amp;width=500&amp;height=300";
+            api_url = service_url + "url=" + currentURL + url_vars,
 
             request = new XMLHttpRequest();
 
@@ -83,7 +84,7 @@ KL.PullquoteRender = (function() {
         //grab url params
         var urlVars = _getURLVars(currentURL);
         _createComposition(urlVars);
-        callScreenshot();
+        callScreenshot(urlVars);
     }()
 
 })();

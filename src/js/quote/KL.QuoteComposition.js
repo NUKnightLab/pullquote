@@ -51,17 +51,16 @@ KL.QuoteComposition = function() {
      */
     _getImage = function(e) {
         var service_url = "https://screenshot.knightlab.com",
-            render_page_url = "?&amp;url=http://pullquote.knightlab.com/render.html",
+            render_page_url = "?&amp;url=http://pullquote.knilab.com/render.html",
             url_vars = "",
             api_url = "";
 
-            url_vars += "&amp;anchor=" + options.anchor;
-            url_vars += "&amp;quote=" + data.quote;
-            url_vars += "&amp;cite=" + data.cite;
-            url_vars += "&amp;image=" + data.image;
-            url_vars += "&amp;credit=" + data.credit;
-            url_vars += "&amp;use_image=" + options.use_image;
-            url_vars += "&amp;width=500&amp;height=300";
+            url_vars += "&anchor=" + options.anchor;
+            url_vars += "&quote=" + data.quote;
+            url_vars += "&cite=" + data.cite;
+            url_vars += "&image=" + data.image;
+            url_vars += "&credit=" + data.credit;
+            url_vars += "&use_image=" + options.use_image;
 
         //if (!window.location.origin) {
         //    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
