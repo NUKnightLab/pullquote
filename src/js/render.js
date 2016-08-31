@@ -48,7 +48,11 @@ KL.PullquoteRender = (function() {
         KL.QuoteComposition().createPullquoteComposition(data);
     };
 
-    callScreenshot = function(data) {
+    _encodeURL = function(url) {
+        return encodeURIComponent(url);
+    }
+
+    callScreenshot = function(currentURL, data) {
         var service_url = "https://screenshot.knightlab.com?&amp;"
             url_vars = "&amp;anchor=" + data.anchor;
             url_vars += "&amp;quote=" + data.quote;
@@ -80,11 +84,11 @@ KL.PullquoteRender = (function() {
     }
 
     init = function() {
-        console.log('render');
         //grab url params
         var urlVars = _getURLVars(currentURL);
         _createComposition(urlVars);
-        callScreenshot(urlVars);
+        currentURL = _encodeURL(currentURL);
+        callScreenshot(currentURL, urlVars);
     }()
 
 })();
