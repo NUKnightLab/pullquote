@@ -76,16 +76,12 @@ KL.Pullquote = (function() {
      * @returns Object options
      */
     createPullquoteLayoutCustomization = function(anchor, use_image) {
-        console.log('createPullquoteLayoutCustomization');
-        console.log('going crazy down there at the lake');
         options = {
             editable: true,
             anchor: anchor || ANCHOR,
             use_image: use_image || USE_IMAGE,
             download_ready: false
         }
-        console.log('cache testing');
-        console.log(options);
         return options;
     },
 
@@ -98,18 +94,12 @@ KL.Pullquote = (function() {
      * @returns {undefined}
      */
     _createComposition = function(data, options) {
-        console.log('_createComposition');
         for(i = 0; i < options.length; i++) {
             var layoutOptions = createPullquoteLayoutCustomization(
                 options[i].position, options[i].use_image),
                 composeData = _.assign(data, layoutOptions);
 
-            console.log(layoutOptions);
-            console.log(composeData);
-            console.log('call quote composition');
-            KL.QuoteComposition().createPullquoteComposition(composeData);
-            console.log('quote composition created');
-            console.log(composeData);
+            KL.QuoteComposition().createPullquoteComposition(i, composeData);
         }
     };
 
@@ -119,7 +109,6 @@ KL.Pullquote = (function() {
      * @returns {undefined}
      */
     _init = function() {
-        console.log('_init');
         urlVars = _getURLVars(window.location.href);
 
         // Create Content

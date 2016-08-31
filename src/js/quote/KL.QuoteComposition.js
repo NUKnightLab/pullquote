@@ -20,11 +20,11 @@ KL.QuoteComposition = function() {
      * @param Object options
      * @returns {undefined}
      */
-    createPullquoteComposition = function(data) {
+    createPullquoteComposition = function(counter, data) {
         var that = this;
         that.data = data;
 
-        _initLayout(that);
+        _initLayout(counter, that);
         _initEvents(that);
     },
 
@@ -123,13 +123,13 @@ KL.QuoteComposition = function() {
      * @param Object that
      * @returns {undefined}
      */
-    _initLayout = function (that) {
+    _initLayout = function (counter, that) {
         var template = document.getElementById('pq-iframe-content-template').innerHTML;
         var output = Handlebars.compile(template);
 
         document.getElementById('pullquote-container').innerHTML += output(that.data);
         // Listener for save button
-        document.getElementsByClassName('kl-button')[0].addEventListener('click', _onDownload, false)
+        document.getElementsByClassName('kl-button')[counter].addEventListener('click', _onDownload, false)
 
         var blockquote = document.getElementsByClassName('kl-quote-large')[0];
         that.blockquote_input = blockquote.getElementsByTagName('p')[0];
