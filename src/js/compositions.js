@@ -99,7 +99,7 @@ KL.Pullquote = (function() {
                 options[i].position, options[i].use_image),
                 composeData = _.assign(data, layoutOptions);
 
-            KL.QuoteComposition().createPullquoteComposition(i, composeData);
+            KL.QuoteComposition().createPullquoteComposition(composeData, i);
         }
     };
 

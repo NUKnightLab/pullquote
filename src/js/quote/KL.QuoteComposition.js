@@ -4,6 +4,7 @@
 Handlebars = require('handlebars');
 
 KL.Class = require("core/KL.Class");
+KL.Helper = require("helpers/KL.Helper");
 
 module.exports = KL.Class.extend({
     includes: [KL.Events, KL.DomMixins, KL.Helper]
@@ -20,9 +21,13 @@ KL.QuoteComposition = function() {
      * @param Object options
      * @returns {undefined}
      */
-    createPullquoteComposition = function(counter, data) {
+    createPullquoteComposition = function(data, counter) {
         var that = this;
         that.data = data;
+
+        if(counter === undefined) {
+            counter = 0;
+        }
 
         _initLayout(counter, that);
         _initEvents(that);
