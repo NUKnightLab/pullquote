@@ -124,14 +124,17 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _initLayout = function (counter, that) {
-        var template = document.getElementById('pq-iframe-content-template').innerHTML;
-        var output = Handlebars.compile(template);
+        var template = document.getElementById('pq-iframe-content-template').innerHTML,
+            output = Handlebars.compile(template),
+            container = document.getElementById('pullquote-container'),
 
-        document.getElementById('pullquote-container').innerHTML += output(that.data);
+            pullquoteEl = KL.Helper.create('div', 'pullquote-composition', container);
+
+        pullquoteEl.innerHTML += output(that.data);
         // Listener for save button
         document.getElementsByClassName('kl-button')[counter].addEventListener('click', _onDownload, false)
 
-        var blockquote = document.getElementsByClassName('kl-quote-large')[0];
+        var blockquote = document.getElementsByClassName('kl-quote-large')[counter];
         that.blockquote_input = blockquote.getElementsByTagName('p')[0];
 
         _determineTextSize(that);
