@@ -61,12 +61,10 @@ KL.PullquoteRender = (function() {
             url_vars += "&amp;credit=" + data.credit;
             url_vars += "&amp;use_image=" + data.use_image;
             url_vars += "&amp;width=500&amp;height=300";
-            api_url = service_url + "url=" + currentURL + url_vars,
+            api_url = service_url + "url=" + currentURL + url_vars;
 
-            request = new XMLHttpRequest();
-
-        path = decodeURIComponent(api_url);
-        request.open('GET', path, true);
+        var request = new XMLHttpRequest();
+        request.open('GET', api_url, true);
 
         request.addEventListener('load', function() {
             thing = this.responseText;
