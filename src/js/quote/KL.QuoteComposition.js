@@ -55,17 +55,14 @@ KL.QuoteComposition = function() {
      * @returns {undefined}
      */
     _getImage = function(e) {
-        var service_url = "https://screenshot.knightlab.com",
-            render_page_url = "?&amp;url=http://pullquote.knilab.com/render.html",
-            url_vars = "",
-            api_url = "";
+        var url_vars = "";
 
-            url_vars += "&anchor=" + options.anchor;
-            url_vars += "&quote=" + data.quote;
-            url_vars += "&cite=" + data.cite;
-            url_vars += "&image=" + data.image;
-            url_vars += "&credit=" + data.credit;
-            url_vars += "&use_image=" + options.use_image;
+        url_vars += "&anchor=" + options.anchor;
+        url_vars += "&quote=" + data.quote;
+        url_vars += "&cite=" + data.cite;
+        url_vars += "&image=" + data.image;
+        url_vars += "&credit=" + data.credit;
+        url_vars += "&use_image=" + options.use_image;
 
         //if (!window.location.origin) {
         //    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
@@ -73,9 +70,6 @@ KL.QuoteComposition = function() {
 
         //send to render
         window.location.href = "http://pullquote.knilab.com/render.html?" + url_vars;
-
-        api_url = encodeURIComponent(service_url + render_page_url + url_vars);
-
     },
 
     /**
