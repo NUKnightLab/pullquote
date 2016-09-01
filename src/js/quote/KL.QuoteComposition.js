@@ -45,31 +45,41 @@ KL.QuoteComposition = function() {
     },
 
     _onDownload = function(e) {
-        _getImage(e);
+        _callScreenshot('http://pullquote.knilab.com/render.html?', data);
     },
 
-    /**
-     * _getImage: gets Image using phantom
-     *
-     * @param e
-     * @returns {undefined}
-     */
-    _getImage = function(e) {
-        var url_vars = "";
+    _encodeURL = function(url) {
+        return encodeURIComponent(url);
+    },
 
-        url_vars += "&anchor=" + options.anchor;
-        url_vars += "&quote=" + data.quote;
-        url_vars += "&cite=" + data.cite;
-        url_vars += "&image=" + data.image;
-        url_vars += "&credit=" + data.credit;
-        url_vars += "&use_image=" + options.use_image;
+    _callScreenshot = function(currentURL, data) {
+        var service_url = "https://screenshot.knightlab.com?&amp;";
+            url_vars = "&anchor=" + data.anchor;
+            url_vars += "&quote=" + data.quote;
+            url_vars += "&cite=" + data.cite;
+            url_vars += "&image=" + data.image;
+            url_vars += "&credit=" + data.credit;
+            url_vars += "&use_image=" + data.use_image;
 
-        //if (!window.location.origin) {
-        //    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
-        //}
+            current_url = _encodeURL(currentURL);
+            api_url = service_url + "url=" + currentURL + url_vars;
 
-        //send to render
-        window.location.href = "http://pullquote.knilab.com/render.html?" + url_vars;
+        var request = new XMLHttpRequest();
+        request.open('GET', api_url, true);
+
+        request.addEventListener('load', function() {
+            thing = this.responseText;
+            p = thing.replace("{\"", "");
+            p = p.replace("\"}", "");
+            p = p.split(",");
+            for(i=0;i<p.length;i++){
+                result = p[i].split("\":\"");
+                if(result[0].indexOf('screenshotLocation') > 0) {
+                    window.location = result[1];
+                }
+            }
+        })
+        request.send();
     },
 
     /**
