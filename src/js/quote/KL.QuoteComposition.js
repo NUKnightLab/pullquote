@@ -61,8 +61,8 @@ KL.QuoteComposition = function() {
             url_vars += "&credit=" + data.credit;
             url_vars += "&use_image=" + data.use_image;
 
-            currentURL = _encodeURL(currentURL);
-            api_url = service_url + "url=" + currentURL + url_vars;
+            currentURL = _encodeURL(currentURL + url_vars);
+            api_url = service_url + "url=" + currentURL;
 
         var request = new XMLHttpRequest();
         request.open('GET', api_url, true);
