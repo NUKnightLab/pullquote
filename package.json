@@ -15,6 +15,7 @@
   "devDependencies": {
     "chokidar": "^1.6.0",
     "cssmin": "^0.4.3",
+    "dotenv": "^2.0.0",
     "exit-hook": "^1.1.1",
     "front-matter": "^2.1.0",
     "fs-extra": "^0.30.0",
