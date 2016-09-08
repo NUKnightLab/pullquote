@@ -60,7 +60,7 @@ function iFrame() {
             i = "image=" + image,
             c = "cite=" + cite;
 
-        url = "http://pullquote.knilab.com/compositions.html?" + q + "&" + i + "&" + c;
+        url = process.env.API_URL + "compositions.html?" + q + "&" + i + "&" + c;
 
         return url;
     }

@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "parallelshell 'webpack --watch' 'npm run watch' 'npm run server'",
-    "prestart": "npm run clean && webpack && npm run compile",
+    "prestart": "npm run clean && node -r dotenv/config setup.js && webpack && npm run compile",
     "dist": "webpack -p && npm run compile && node tasks/minify-css.js",
     "clean": "rimraf dist/",
     "watch": "node tasks/watch.js",

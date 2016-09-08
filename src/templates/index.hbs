@@ -57,11 +57,11 @@
                     }
 
                     console.log('call import script');
-                    importScript('http://pullquote.knilab.com/js/bookmarklet.js', function() {
+                    importScript(process.env.API_URL + 'js/bookmarklet.js', function() {
                         bookmarklet.iFrame().init();
                     });
                   });
-                  req.open('GET', 'http://pullquote.knilab.com/templates/template.html');
+                  req.open('GET', process.env.API_URL + 'templates/template.html');
                   req.send();
               }
       })();"

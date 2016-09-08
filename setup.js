@@ -5,4 +5,6 @@ var fs = require('fs-extra'),
 fs.createReadStream('.sample-env')
   .pipe(fs.createWriteStream('.env'))
 
+dotenv.config();
 dotenv.load();
+

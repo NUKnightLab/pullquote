@@ -19,6 +19,14 @@ module.exports = {
     node: {
         fs: "empty"
     },
+    plugins:  [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+          'API_URL': JSON.stringify(process.env.API_URL || 'http://localhost:8080/')
+        }
+      })
+    ],
     resolve: {
         root: componentPath,
         alias: {
