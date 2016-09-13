@@ -10,7 +10,7 @@ project_repo: "git@github.com:NUKnightLab/{{ project_name }}.git"
 static_service: "s3"
 static_dir: "{{ application_dir }}/dist"
 static_dest: "s3://{{ static_bucket }}" # static hosted site goes in root of bucket
-static_prep: "npm install --only=production; npm run dist"
+static_prep: "cp deploy/env.{{ env }} ./.env; npm install --only=production; npm run dist"
 
 # Configs common to all projects
 application_user: apps

@@ -43,7 +43,7 @@
                   console.log('attach stylesheet');
                   var style = document.createElement('link');
                   style.rel = 'stylesheet';
-                  style.href = 'http://pullquote.knightlab.com/css/base.css';
+                  style.href = '{{ pullquoteURL }}css/base.css';
                   document.head.appendChild(style);
 
                   var req = new XMLHttpRequest();
@@ -57,11 +57,11 @@
                     }
 
                     console.log('call import script');
-                    importScript(process.env.API_URL + 'js/bookmarklet.js', function() {
-                        bookmarklet.iFrame().init();
+                    importScript('{{ pullquoteURL }}js/bookmarklet.js', function() {
+                    bookmarklet.iFrame('{{pullquoteURL}}').init();
                     });
                   });
-                  req.open('GET', process.env.API_URL + 'templates/template.html');
+                  req.open('GET', '{{ pullquoteURL }}templates/template.html');
                   req.send();
               }
       })();"

@@ -1,10 +1,10 @@
 /**
   Pullquote Bookmarklet
 */
-function iFrame() {
+function iFrame(apiRoot) {
     var Handlebars = require('handlebars');
 
-    function init() {
+    function init(apiRoot) {
         text = grabTextSelection();
         image = grabOgImage();
         cite = grabCitation();
@@ -60,7 +60,7 @@ function iFrame() {
             i = "image=" + image,
             c = "cite=" + cite;
 
-        url = process.env.API_URL + "compositions.html?" + q + "&" + i + "&" + c;
+        url = apiRoot + "compositions.html?" + q + "&" + i + "&" + c;
 
         return url;
     }

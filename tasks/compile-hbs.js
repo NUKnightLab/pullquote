@@ -1,3 +1,5 @@
+require('dotenv').config({silent: true});
+
 var _ = require("../src/js/lib/lodash.js"),
     fm = require('front-matter'),
     fs = require('fs-extra'),
@@ -12,6 +14,7 @@ function renderTemplate(templatePath) {
       context = frontMatter.attributes,
       template = Handlebars.compile(frontMatter.body);
 
+  context['pullquoteURL'] = process.env.PULLQUOTE_URL || 'http://localhost:8080/';
   return template(context);
 }
 
@@ -19,7 +22,7 @@ function renderPage(template, layout) {
   var file = fs.readFileSync(layout, 'utf8'),
       context = {body: template},
       page = Handlebars.compile(file);
-  
+
   return page(context);
 }
 
