@@ -10,7 +10,7 @@ module.exports = KL.Class.extend({
     includes: [KL.Events, KL.DomMixins, KL.Helper]
 })
 
-KL.QuoteComposition = function() {
+KL.QuoteComposition = function(apiRoot) {
     //var Handlebars = require('handlebars'),
     var data;
 
@@ -45,7 +45,14 @@ KL.QuoteComposition = function() {
     },
 
     _onDownload = function(e) {
-        _callScreenshot('http://pullquote.knilab.com/render.html?', data);
+        var root = apiRoot;
+        if (root === 'http://localhost:8080/') {
+            // TODO: build out development platform to run screenshot locally
+            // and to enable localhost integration with screenshot. This fix
+            // to root is a stopgap measure. See issue #40
+            root = 'http://pullquote.knilab.com/';
+        }
+        _callScreenshot(root + 'render.html?', data);
     },
 
     _encodeURL = function(url) {

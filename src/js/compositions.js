@@ -38,7 +38,7 @@ KL.Pullquote = (function() {
         str = string.replace(match, '&');
       }
 
-      urlVarArray = str.split('?')[1].split('&');
+      urlVarArray = str.split('?').slice(1).join('?').split('&');
 
       for(var i = 0; i < urlVarArray.length; i++) {
         urlKey = urlVarArray[i].split('=')[0];
@@ -57,6 +57,7 @@ KL.Pullquote = (function() {
      */
     createPullquoteContent = function(datum) {
         data = {
+            apiRoot: datum.apiRoot,
             quote: datum.quote || QUOTE,
             cite: datum.cite || CITE,
             image: datum.image || IMAGE,
@@ -99,7 +100,7 @@ KL.Pullquote = (function() {
                 options[i].position, options[i].use_image),
                 composeData = _.assign(data, layoutOptions);
 
-            KL.QuoteComposition().createPullquoteComposition(composeData, i);
+            KL.QuoteComposition(data.apiRoot).createPullquoteComposition(composeData, i);
         }
     };
 
