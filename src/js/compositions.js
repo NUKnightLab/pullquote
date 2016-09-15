@@ -38,7 +38,6 @@ KL.Pullquote = (function() {
         str = string.replace(match, '&');
       }
 
-      //urlVarArray = str.split('?')[1].split('&');
       urlVarArray = str.split('?').slice(1).join('?').split('&');
 
       for(var i = 0; i < urlVarArray.length; i++) {
