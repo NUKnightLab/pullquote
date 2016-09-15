@@ -116,10 +116,12 @@ KL.Pullquote = (function() {
 
         // Create Pullquote Composition with 4 images with specific layout options
         _createComposition(urlVars, [
-            { position: false, use_image: true },
-            { position: "left", use_image: true },
-            { position: "right", use_image: true },
-            { position: false, use_image: false }
+            { position: false, use_image: true }
+            // TODO: these are removed for the moment b/c they show the
+            // same composition 4 times instead of different compositions
+            //{ position: "left", use_image: true },
+            //{ position: "right", use_image: true },
+            //{ position: false, use_image: false }
         ])
     }();
 
