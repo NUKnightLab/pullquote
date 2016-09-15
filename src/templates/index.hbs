@@ -2,23 +2,42 @@
 <head>
   <link href="//cloud.webtype.com/css/d4767ecb-457a-4677-8761-72f890add836.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdn.knightlab.com/libs/purpleline/latest/css/purpleline.min.css" type="text/css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.knightlab.com/libs/purpleline/latest/js/purpleline.min.js" ></script>
   <link rel="icon" type="image/png" href="//cdn.knightlab.com/libs/purpleline/latest/img/favicon.ico">
 </head>
 <body>
   <header id="overview" class="panel">
-    <div class="row text-center">
+    <div class="row">
       <div class="corner-logo">
         <a href="https://knightlab.com"><img src="https://cdn.knightlab.com/libs/purpleline/latest/img/logos/logo_horizontal_NOtagline_615x205_transparent_padded.png" data-pin-nopin="true"></a>
       </div>
-        <div class="large-12 columns">
+        <div class="large-12 columns text-center">
             <h1 class="logo-mark xl">Pullquote</h1>
             <h2 class="intro">A convenient tool to share quotes with style</h2>
         </div>
       </div>
   </header>
+
   <section id="demo">
-    <div class="row text-center">
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <p>
+          In the Summer of 2016, Knight Lab brought two new developers onto the team. <em>Pullquote</em> is an exercise we chose to get used to working together, and
+          to have a context in which to consider best practices in many areas.
+        </p>
+        <p>
+          <em>Pullquote</em> started from work done in student prototyping classes trying to make “smart” choices about which text and image to “quote” when sharing
+          a story. When no great strategies were found, we shifted to something more focused on simplicity and ease of use.
+        </p>
+        <p>
+          We're aware that there are some other strong tools in this space, and we are not planning on positioning <em>Pullquote</em> as competition to them.
+          It has served us well as a chance to explore questions of technology and team collaboration. We will keep it around as a record, and we will probably use
+          it as a workshop for students at Knight Lab, but we don't expect to elevate it to a fully supported Knight Lab product.
+        </p>
+      </div>
+      <div class="small-12 medium-6 columns text-center">
+        <img src="assets/demo.gif" alt="gif demo of Pullquote">
           <p>To run the bookmarklet, drag the<a href="javascript:(function(){
               if(document.getElementById('bookmarklet')) {
                   document.getElementById('bookmarklet').remove();
@@ -69,9 +88,9 @@
 
       onClick="javascript:(function(){console.log('hello!')})();"> Pullquote </a>link to your bookmarks bar.</p>
     </div>
-    <div class="demo-gif" >
-      <img src="assets/demo.gif" alt="gif demo of Pullquote">
-    </div>
+
+  </div>
+
   </section>
     <footer>
       <div class="about-knightlab">
