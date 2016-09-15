@@ -4,7 +4,7 @@
 function iFrame(apiRoot) {
     var Handlebars = require('handlebars');
 
-    function init(apiRoot) {
+    function init() {
         text = grabTextSelection();
         image = grabOgImage();
         cite = grabCitation();
@@ -56,11 +56,12 @@ function iFrame(apiRoot) {
     function composeURL(quote, image, cite) {
       //compositions.html?quote=whatever quote&image=assets/placeholder.jpg&cite=publication name
         var url,
+            a = "apiRoot=" + apiRoot,
             q = "quote=" + quote,
             i = "image=" + image,
             c = "cite=" + cite;
 
-        url = apiRoot + "compositions.html?" + q + "&" + i + "&" + c;
+        url = apiRoot + "compositions.html?" + q + "&" + i + "&" + c + "&" + a;
 
         return url;
     }

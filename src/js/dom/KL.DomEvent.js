@@ -141,7 +141,7 @@ module.exports = {
         if (e.detail) {
             delta = -e.detail / 3;
         }
-        
+
         return delta;
     }
 };
