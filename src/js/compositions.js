@@ -119,9 +119,9 @@ KL.Pullquote = (function() {
             { position: false, use_image: true }
             // TODO: these are removed for the moment b/c they show the
             // same composition 4 times instead of different compositions
-            //{ position: "left", use_image: true },
-            //{ position: "right", use_image: true },
-            //{ position: false, use_image: false }
+            //{ position: "kl-anchor-left", use_image: true },
+            //{ position: "kl-anchor-right", use_image: true },
+            //{ position: "kl-anchor-false", use_image: false }
         ])
     }();
 
