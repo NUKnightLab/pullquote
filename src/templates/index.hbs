@@ -22,7 +22,6 @@
               if(document.getElementById('bookmarklet')) {
                   document.getElementById('bookmarklet').remove();
               } else {
-                  console.log('define import script');
                   var importScript = (function (oHead) {
 
                     function loadError (oError) {
@@ -40,7 +39,6 @@
 
                   })(document.head || document.getElementsByTagName('head')[0]);
 
-                  console.log('attach stylesheet');
                   var style = document.createElement('link');
                   style.rel = 'stylesheet';
                   style.href = '{{ pullquoteURL }}css/base.css';
@@ -56,13 +54,18 @@
                       document.body.appendChild(script[0]);
                     }
 
-                    console.log('call import script');
                     importScript('{{ pullquoteURL }}js/bookmarklet.js', function() {
                     bookmarklet.iFrame('{{pullquoteURL}}').init();
                     });
                   });
                   req.open('GET', '{{ pullquoteURL }}templates/template.html');
                   req.send();
+                  document.onkeydown = function(evt) {
+                      if ( evt.key === 'Escape'
+                           || evt.keyCode === 27) {
+                      }
+                      bookmarklet.iFrame().closeiFrame();
+                  }
               }
       })();"
 
