@@ -48,8 +48,10 @@ function iFrame(apiRoot) {
     }
 
     function grabCitation(){
-      var cite;
-      document.domain.split("\.")[0];
+      var cite = document.domain;
+      if (cite.indexOf('www.') == 0) {
+          cite = cite.slice(4);
+      }
       return cite;
     }
 
