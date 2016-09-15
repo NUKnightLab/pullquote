@@ -43,7 +43,7 @@ KL.Pullquote = (function() {
       for(var i = 0; i < urlVarArray.length; i++) {
         urlKey = urlVarArray[i].split('=')[0];
         urlVal = urlVarArray[i].replace(/([^=]*)./, '')
-        urlVars[urlKey] = urlVal;
+        urlVars[urlKey] = decodeURIComponent(urlVal);
       }
 
       return urlVars;
