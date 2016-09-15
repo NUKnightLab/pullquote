@@ -49,7 +49,7 @@ KL.QuoteComposition = function(apiRoot) {
         if (root === 'http://localhost:8080/') {
             // TODO: build out development platform to run screenshot locally
             // and to enable localhost integration with screenshot. This fix
-            // to root is a stopgap measure.
+            // to root is a stopgap measure. See issue #40
             root = 'http://pullquote.knilab.com/';
         }
         _callScreenshot(root + 'render.html?', data);
