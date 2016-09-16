@@ -103,6 +103,15 @@ KL.Pullquote = (function() {
         }
     };
 
+    bindClicks = function() {
+        /* Return click focus to parent of iframe so parent keybindings
+         * continue to work.
+         */
+        document.onclick = function(evt) {
+            window.parent.focus();
+        };
+    }
+
     /**
      * _init: creates the composition for pullquote
      *
@@ -122,7 +131,9 @@ KL.Pullquote = (function() {
             //{ position: "kl-anchor-left", use_image: true },
             //{ position: "kl-anchor-right", use_image: true },
             //{ position: "kl-anchor-false", use_image: false }
-        ])
+        ]);
+
+        bindClicks();
     }();
 
 })();

@@ -60,12 +60,6 @@
                   });
                   req.open('GET', '{{ pullquoteURL }}templates/template.html');
                   req.send();
-                  document.onkeydown = function(evt) {
-                      if ( evt.key === 'Escape'
-                           || evt.keyCode === 27) {
-                      }
-                      bookmarklet.iFrame().closeiFrame();
-                  }
               }
       })();"
 

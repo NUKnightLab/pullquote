@@ -11,6 +11,7 @@ function iFrame(apiRoot) {
         url = composeURL(text, image, cite)
 
         loadTemplate(url);
+        bindEscape();
 
         return false;
     }
@@ -69,6 +70,15 @@ function iFrame(apiRoot) {
 
     function closeiFrame() {
         document.body.removeChild(bookMarklet)
+    }
+
+    function bindEscape() {
+        document.onkeydown = function(evt) {
+            if ( evt.key === 'Escape'
+                || evt.keyCode === 27) {
+            }
+            bookmarklet.iFrame().closeiFrame();
+        }
     }
 
     return {
