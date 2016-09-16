@@ -101,13 +101,13 @@
 				p {
 					transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 					text-align:left;
-					
+
 					&[contenteditable="true"] {
 						//padding: 5px;
 						//outline: 2px dashed fadeout(#CCC, 75);
 					}
 					&[contenteditable="true"]:hover {
-						//padding: 10px; 
+						//padding: 10px;
 						outline: 2px dashed #CCC;
 					}
 
@@ -140,7 +140,7 @@
 						overflow: hidden;
 						display: -webkit-box;
 						-webkit-line-clamp: 9;
-						-webkit-box-orient: vertical; 
+						-webkit-box-orient: vertical;
 					}
 				}
 				&.kl-quote-ellipsis-non-webkit {
@@ -150,13 +150,13 @@
 						overflow: hidden;
 						display: -webkit-box;
 						-webkit-line-clamp: 9;
-						-webkit-box-orient: vertical; 
+						-webkit-box-orient: vertical;
 						height:200px;
 						&:after {
 							position: absolute;
 							left: 25px;
 							bottom:25px;
-							
+
 							content: '\2026';
 						}
 					}
@@ -173,7 +173,7 @@
 						//outline: 2px dashed fadeout(#CCC, 75);
 					}
 					&[contenteditable="true"]:hover {
-						//padding: 10px; 
+						//padding: 10px;
 						outline: 2px dashed #CCC;
 					}
 					&:before {
@@ -199,11 +199,11 @@
 			top:0;
 			left:0;
 			background-color:#000;
-			
+
 		}
 
 		.kl-quotecomposition-image {
-			
+
 			z-index:1;
 			width:100%;
 			//opacity:0.5;
@@ -211,7 +211,7 @@
 			height:$quote-composition-height;
 			background-size:cover;
 			background-position: center center;
-			
+
 		}
 	}
 
@@ -276,7 +276,7 @@
 
 			}
 		}
-		
+
 	}
 	&.kl-anchor-left, &.kl-anchor-right {
 		.kl-quotecomposition-container {
@@ -295,7 +295,7 @@
 							overflow: hidden;
 							display: -webkit-box;
 							-webkit-line-clamp: 9;
-							-webkit-box-orient: vertical;  
+							-webkit-box-orient: vertical;
 						}
 					}
 					&.kl-quote-ellipsis-non-webkit {
@@ -305,7 +305,7 @@
 							overflow: hidden;
 							display: -webkit-box;
 							-webkit-line-clamp: 9;
-							-webkit-box-orient: vertical; 
+							-webkit-box-orient: vertical;
 							height:200px;
 						}
 					}
@@ -314,4 +314,43 @@
 		}
 	}
 
+}
+
+/* ZpzZaw spinner */
+.tl-loading-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #FFFFFF;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+}
+@-webkit-keyframes rotateplane {
+  0% {
+    -webkit-transform: perspective(120px);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+  }
+}
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+#kl-pullquote-loading-indicator {
+    visibility: hidden;
 }
