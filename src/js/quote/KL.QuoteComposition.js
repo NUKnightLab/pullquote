@@ -45,7 +45,7 @@ KL.QuoteComposition = function() {
     },
 
     _onDownload = function(e) {
-        _callScreenshot('http://pullquote.knilab.com/render.html?', data);
+        _callScreenshot('https://pullquote.knilab.com/render.html?', data);
     },
 
     _encodeURL = function(url) {

@@ -43,7 +43,7 @@ function iFrame(apiRoot) {
 
             return image;
         } else {
-          return image = "http://placekitten.com/500/300"
+          return image = "https://placekitten.com/500/300"
         }
     }
 
