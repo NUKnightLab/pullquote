@@ -45,6 +45,8 @@ KL.QuoteComposition = function() {
     },
 
     _onDownload = function(e) {
+        document.getElementById('kl-pullquote-loading-indicator')
+            .style.visibility = 'visible';
         _callScreenshot('https://pullquote.knilab.com/render.html?', data);
     },
 
@@ -65,6 +67,10 @@ KL.QuoteComposition = function() {
             api_url = service_url + "url=" + currentURL;
 
         var request = new XMLHttpRequest();
+        request.onload = function() {
+            document.getElementById('kl-pullquote-loading-indicator')
+                .style.visibility = 'hidden';
+        }
         request.open('GET', api_url, true);
 
         request.addEventListener('load', function() {
