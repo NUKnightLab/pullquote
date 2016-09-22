@@ -14,8 +14,9 @@ $gray-lighter:           lighten($gray-base, 93.5%); // #eee
 
 /* TYPOGRAPHY
 ================================================== */
-$font-family-sans-serif:	"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-serif:			'Lora', Georgia, "Times New Roman", Times, serif;
+$font-family-sans-serif: "Apres RE", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:      'Turnip RE', Georgia, 'Times New Roman', Times, serif;
+$font-family-headline:   "Salvo Serif Cond", Georgia, "Times New Roman", Times, serif;
 
 $font-size-base:          19px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
